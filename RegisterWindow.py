@@ -1,7 +1,7 @@
-from PySide6 import QtWidgets
-from ui.ui_registration_form import Ui_Registration
 import json
 import hashlib
+from PySide6 import QtWidgets
+from ui.ui_registration_form import Ui_Registration
 
 
 class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
@@ -9,8 +9,8 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
         super().__init__()
         self.setupUi(self)
 
-        self.show_pswd = True
-        self.show_pswd_rep = True
+        self.show_pswd = False
+        self.show_pswd_rep = False
 
         self.show_password.clicked.connect(self.show_password_f)
         self.show_password_rep.clicked.connect(self.show_password_rep_f)
@@ -18,20 +18,23 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
         self.register_2.clicked.connect(self.register)
 
     def show_password_f(self):
+        """This method shows or hides password"""
         if self.show_pswd:
-            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)
-        else:
             self.password.setEchoMode(QtWidgets.QLineEdit.Password)
+        else:
+            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.show_pswd = not self.show_pswd
 
     def show_password_rep_f(self):
+        """This method shows or hides password"""
         if self.show_pswd_rep:
-            self.password_repeat.setEchoMode(QtWidgets.QLineEdit.Normal)
-        else:
             self.password_repeat.setEchoMode(QtWidgets.QLineEdit.Password)
+        else:
+            self.password_repeat.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.show_pswd_rep = not self.show_pswd_rep
 
     def register(self):
+        """This method handles user registration"""
         username = self.username.text()
         email = self.email.text()
         pswd = self.password.text()
@@ -45,28 +48,56 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
             users = []
 
         if len(username) < 3 or len(username) > 32:
-            QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Длина имени пользователя должна быть от 3 до 32 символов!')
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                'Длина имени пользователя должна быть от 3 до 32 символов!'
+            )
             return
         if "@" not in email:
-            QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Введённый адрес электронной почты не действителен!')
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                'Введённый адрес электронной почты не действителен!'
+            )
             return
         if pswd != pswd_rep:
-            QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Пароли не совпадают!')
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                'Пароли не совпадают!'
+            )
             return
         if len(pswd) < 8:
-            QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Длина пароля должна быть больше 8 символов!')
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                'Длина пароля должна быть не менее 8 символов!'
+            )
             return
         if school == "Школа":
-            QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Выберите какую-нибудь школу!')
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                'Выберите какую-нибудь школу!'
+            )
             return
 
         for u in users:
             u = json.loads(u)
             if u['username'] == username:
-                QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Такой пользователь уже существует!')
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    'Ошибка',
+                    'Такой пользователь уже существует!'
+                )
                 return
             elif u['email'] == email:
-                QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Пользователь с такой электронной почтой уже существует!')
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    'Ошибка',
+                    'Пользователь с такой электронной почтой уже существует!'
+                )
                 return
 
         with open('save.jsonlines', 'a', encoding='UTF-8') as f:

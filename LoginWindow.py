@@ -1,7 +1,7 @@
-from PySide6 import QtWidgets
-from ui.ui_login_form import Ui_LoginForm
 import json
 import hashlib
+from PySide6 import QtWidgets
+from ui.ui_login_form import Ui_LoginForm
 
 
 class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
@@ -10,10 +10,13 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
 
         self.setupUi(self)
         self.p = parent
+        self.password_visible = False
 
         self.login.clicked.connect(self.login_f)
+        self.show_password.clicked.connect(self.show_password_f)
 
     def login_f(self):
+        """This method handles login"""
         account_cred = self.account_cred.text()
         password = self.password.text()
 
@@ -40,10 +43,28 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         for u in users:
             u = json.loads(u)
 
-            if (u['username'] == account_cred or u['email'] == account_cred) and u['password'] == hashlib.sha256(password.encode()).hexdigest():
+            if (u['username'] == account_cred or u['email'] == account_cred)\
+                and u['password'] == hashlib.sha256(password.encode()).hexdigest():
                 # Do something
-                QtWidgets.QMessageBox.information(self, 'Инфо', 'Успешная авторизация!')
+                QtWidgets.QMessageBox.information(
+                    self,
+                    'Инфо',
+                    'Успешная авторизация!'
+                )
                 return
 
-        QtWidgets.QMessageBox.critical(self, 'Ошибка', 'Пользователь с такими учетными данными не найден в системе')
+        QtWidgets.QMessageBox.critical(
+            self,
+            'Ошибка',
+            'Пользователь с такими учетными данными не найден в системе'
+        )
+
+    def show_password_f(self):
+        """This methods show or hides password"""
+        if self.password_visible:
+            self.password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+        else:
+            self.password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Normal)
+
+        self.password_visible = not self.password_visible
 

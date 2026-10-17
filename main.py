@@ -17,6 +17,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.login_btn.clicked.connect(self.open_log_window)
 
     def open_reg_window(self):
+        """This method opens a registartion window. If login window was open, it will close it."""
         if self.lw != None:
             self.lw.destroy()
             self.lw = None
@@ -24,6 +25,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.rw.show()
 
     def open_log_window(self):
+        """This method opens a login window. If registartion window was open, it will close it."""
         if self.rw != None:
             self.rw.destroy()
             self.rw = None

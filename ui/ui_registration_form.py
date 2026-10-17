@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QHBoxLayout
     QVBoxLayout, QWidget)
 
 class Ui_Registration(object):
-    def setupUi(self, Registration):
+    def setupUi(self, Registration: QWidget):
         if not Registration.objectName():
             Registration.setObjectName(u"Registration")
         Registration.resize(400, 300)

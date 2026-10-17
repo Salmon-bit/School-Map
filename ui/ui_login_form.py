@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QFrame,
     QVBoxLayout, QWidget)
 
 class Ui_LoginForm(object):
-    def setupUi(self, LoginForm):
+    def setupUi(self, LoginForm: QWidget):
         if not LoginForm.objectName():
             LoginForm.setObjectName(u"LoginForm")
         LoginForm.resize(400, 300)

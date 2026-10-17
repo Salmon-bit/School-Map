@@ -19,8 +19,9 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QHBoxLayout,
     QLabel, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
+
 class Ui_WelcomeScreen(object):
-    def setupUi(self, WelcomeScreen):
+    def setupUi(self, WelcomeScreen: QWidget):
         if not WelcomeScreen.objectName():
             WelcomeScreen.setObjectName(u"WelcomeScreen")
         WelcomeScreen.resize(400, 300)

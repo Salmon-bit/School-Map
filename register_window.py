@@ -113,4 +113,3 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
             f.write('\n')
 
         QtWidgets.QMessageBox.information(self, 'Инфо', 'Успешная регистрация!')
-

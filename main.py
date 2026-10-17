@@ -1,4 +1,6 @@
-"""This module is the main module of the project. When you want to run or build the project, you should use this file as a main module or entrypoint of the programm"""
+"""This module is the main module of the project.
+When you want to run or build the project,
+you should use this file as a main module or entrypoint of the programm"""
 import sys
 from PySide6.QtWidgets import QApplication, QWidget
 from ui.ui_welcome_screen import Ui_WelcomeScreen

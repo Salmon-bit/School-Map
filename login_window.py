@@ -45,7 +45,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         for u in users:
             u = json.loads(u)
 
-            if (u['username'] == account_cred or u['email'] == account_cred)\
+            if account_cred in (u['username'], u['email'])\
                 and u['password'] == hashlib.sha256(password.encode()).hexdigest():
                 # Do something
                 QtWidgets.QMessageBox.information(

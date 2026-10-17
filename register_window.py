@@ -35,7 +35,7 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
             self.password_repeat.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.show_pswd_rep = not self.show_pswd_rep
 
-    def register(self):
+    def register(self): # pylint: disable=too-many-return-statements
         """This method handles user registration"""
         username = self.username.text()
         email = self.email.text()

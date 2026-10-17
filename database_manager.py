@@ -66,16 +66,16 @@ class DatabaseManager:
         )
         self.connection.commit()
 
-    def get_username_by_id(self, id: int | str) -> str:
+    def get_username_by_id(self, uid: int | str) -> str:
         """Gets username by id if user exists
 
-        :param id: Unique id of user from `users` table
-        :type id: int | str
+        :param uid: Unique id of user from `users` table
+        :type uid: int | str
         :returns: Returns got username if user exists or empty string if not
         :rtype: str
         """
 
-        o = self.cur.execute('SELECT username FROM users WHERE id = ?', (id,))
+        o = self.cur.execute('SELECT username FROM users WHERE id = ?', (uid,))
         try:
             return str(list(o.fetchone())[0])
         except TypeError:
@@ -111,16 +111,16 @@ class DatabaseManager:
         except TypeError:
             return ''
 
-    def get_email_by_id(self, id: int | str) -> str:
+    def get_email_by_id(self, uid: int | str) -> str:
         """Gets users email by id if user exists
 
-        :param id: Users id from `users` table
-        :type id: int | str
+        :param uid: Users id from `users` table
+        :type uid: int | str
         :returns: Returns got email if user exists or empty string if not
         :rtype: str
         """
 
-        o = self.cur.execute('SELECT email FROM users WHERE id = ?', (id,))
+        o = self.cur.execute('SELECT email FROM users WHERE id = ?', (uid,))
         try:
             return str(list(o.fetchone())[0])
         except TypeError:

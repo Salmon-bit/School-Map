@@ -1,11 +1,11 @@
-"""This module provides a class of the register window"""
+"""Register window module"""
 import json
 import hashlib
 from PySide6 import QtWidgets
 from ui.ui_registration_form import Ui_Registration
 
 
-class register_window(QtWidgets.QWidget, Ui_Registration):
+class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
     """This class provides a register screen window"""
     def __init__(self):
         super().__init__()

@@ -2,8 +2,8 @@
 import sys
 from PySide6.QtWidgets import QApplication, QWidget
 from ui.ui_welcome_screen import Ui_WelcomeScreen
-from RegisterWindow import register_window
-from LoginWindow import login_window
+from register_window import RegisterWindow
+from login_window import LoginWindow
 
 
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
@@ -23,7 +23,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         if self.lw is not None:
             self.lw.destroy()
             self.lw = None
-        self.rw = register_window()
+        self.rw = RegisterWindow()
         self.rw.show()
 
     def open_log_window(self):
@@ -31,7 +31,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         if self.rw is not None:
             self.rw.destroy()
             self.rw = None
-        self.lw = login_window(self)
+        self.lw = LoginWindow(self)
         self.lw.show()
 
 

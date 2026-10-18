@@ -77,3 +77,6 @@ dist
 build
 *.spec
 *.user
+.vscode
+.ropeproject
+__pycache__

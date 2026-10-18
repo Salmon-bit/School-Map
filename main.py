@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 from ui.ui_welcome_screen import Ui_WelcomeScreen
 from register_window import RegisterWindow
 from login_window import LoginWindow
+from main_window import MainWindow
 
 
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
@@ -16,6 +17,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.setupUi(self)
         self.rw = None
         self.lw = None
+        self.mw = None
 
         self.register_btn.clicked.connect(self.open_reg_window)
         self.login_btn.clicked.connect(self.open_log_window)
@@ -35,6 +37,16 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.rw = None
         self.lw = LoginWindow(self)
         self.lw.show()
+
+    def open_main_window(self):
+        if self.mw is not None:
+            self.mw.destroy()
+            self.mw = None
+        self.lw.destroy()
+        self.lw = None
+        self.mw = MainWindow()
+        self.mw.show()
+        self.hide()
 
 
 if __name__ == "__main__":

@@ -109,7 +109,7 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
 
         QtWidgets.QMessageBox.information(self, 'Инфо', 'Успешная регистрация!')
 
-    def destroy(self, /, destroyWindow: bool = ..., destroySubWindows: bool = ...) -> None: # pylint: disable=invalid-name
+    def destroy(self) -> None: # pylint: disable=invalid-name
         """Rewrite destroy function to automatically close database connection"""
         self.dm.close_connection()
-        return super().destroy(destroyWindow, destroySubWindows)
+        return super().destroy(True, True)

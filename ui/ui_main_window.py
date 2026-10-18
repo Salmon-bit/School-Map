@@ -1,0 +1,230 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'main_window.ui'
+##
+## Created by: Qt User Interface Compiler version 6.12.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLayout,
+    QMainWindow, QMenu, QMenuBar, QPushButton,
+    QSizePolicy, QStatusBar, QTabWidget, QVBoxLayout,
+    QWidget)
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(800, 600)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        self.action_2 = QAction(MainWindow)
+        self.action_2.setObjectName(u"action_2")
+        self.action_3 = QAction(MainWindow)
+        self.action_3.setObjectName(u"action_3")
+        self.action_4 = QAction(MainWindow)
+        self.action_4.setObjectName(u"action_4")
+        self.action_5 = QAction(MainWindow)
+        self.action_5.setObjectName(u"action_5")
+        self.action_6 = QAction(MainWindow)
+        self.action_6.setObjectName(u"action_6")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditFind))
+        self.action_6.setIcon(icon)
+        self.action_8 = QAction(MainWindow)
+        self.action_8.setObjectName(u"action_8")
+        self.action_9 = QAction(MainWindow)
+        self.action_9.setObjectName(u"action_9")
+        self.action_10 = QAction(MainWindow)
+        self.action_10.setObjectName(u"action_10")
+        self.action_11 = QAction(MainWindow)
+        self.action_11.setObjectName(u"action_11")
+        self.action_12 = QAction(MainWindow)
+        self.action_12.setObjectName(u"action_12")
+        self.action_13 = QAction(MainWindow)
+        self.action_13.setObjectName(u"action_13")
+        self.action_15 = QAction(MainWindow)
+        self.action_15.setObjectName(u"action_15")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListRemove))
+        self.action_15.setIcon(icon1)
+        self.action_16 = QAction(MainWindow)
+        self.action_16.setObjectName(u"action_16")
+        self.action_17 = QAction(MainWindow)
+        self.action_17.setObjectName(u"action_17")
+        self.action_18 = QAction(MainWindow)
+        self.action_18.setObjectName(u"action_18")
+        self.action_20 = QAction(MainWindow)
+        self.action_20.setObjectName(u"action_20")
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
+        self.centralwidget.setSizePolicy(sizePolicy1)
+        self.verticalLayoutWidget = QWidget(self.centralwidget)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(10, 0, 781, 551))
+        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setSizeConstraint(QLayout.SizeConstraint.SetMaximumSize)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.floor_veiw = QTabWidget(self.verticalLayoutWidget)
+        self.floor_veiw.setObjectName(u"floor_veiw")
+        self.floor_1 = QWidget()
+        self.floor_1.setObjectName(u"floor_1")
+        self.school_veiw_floor_1 = QWidget(self.floor_1)
+        self.school_veiw_floor_1.setObjectName(u"school_veiw_floor_1")
+        self.school_veiw_floor_1.setGeometry(QRect(20, 20, 741, 421))
+        sizePolicy1.setHeightForWidth(self.school_veiw_floor_1.sizePolicy().hasHeightForWidth())
+        self.school_veiw_floor_1.setSizePolicy(sizePolicy1)
+        self.floor_veiw.addTab(self.floor_1, "")
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName(u"tab_2")
+        self.floor_veiw.addTab(self.tab_2, "")
+
+        self.verticalLayout.addWidget(self.floor_veiw)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.biggerVeiw = QPushButton(self.verticalLayoutWidget)
+        self.biggerVeiw.setObjectName(u"biggerVeiw")
+
+        self.horizontalLayout.addWidget(self.biggerVeiw)
+
+        self.resetVeiw = QPushButton(self.verticalLayoutWidget)
+        self.resetVeiw.setObjectName(u"resetVeiw")
+
+        self.horizontalLayout.addWidget(self.resetVeiw)
+
+        self.smallerView = QPushButton(self.verticalLayoutWidget)
+        self.smallerView.setObjectName(u"smallerView")
+
+        self.horizontalLayout.addWidget(self.smallerView)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.currentSize = QLabel(self.verticalLayoutWidget)
+        self.currentSize.setObjectName(u"currentSize")
+        self.currentSize.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout.addWidget(self.currentSize)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(MainWindow)
+        self.menubar.setObjectName(u"menubar")
+        self.menubar.setGeometry(QRect(0, 0, 800, 23))
+        self.menu = QMenu(self.menubar)
+        self.menu.setObjectName(u"menu")
+        self.menu_2 = QMenu(self.menu)
+        self.menu_2.setObjectName(u"menu_2")
+        self.menu_3 = QMenu(self.menubar)
+        self.menu_3.setObjectName(u"menu_3")
+        self.menu_4 = QMenu(self.menubar)
+        self.menu_4.setObjectName(u"menu_4")
+        self.menu_5 = QMenu(self.menubar)
+        self.menu_5.setObjectName(u"menu_5")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.menu_3.menuAction())
+        self.menubar.addAction(self.menu_4.menuAction())
+        self.menubar.addAction(self.menu_5.menuAction())
+        self.menu.addAction(self.menu_2.menuAction())
+        self.menu.addAction(self.action_5)
+        self.menu_2.addAction(self.action_2)
+        self.menu_2.addAction(self.action_3)
+        self.menu_2.addAction(self.action_4)
+        self.menu_3.addAction(self.action_6)
+        self.menu_3.addSeparator()
+        self.menu_3.addAction(self.action_8)
+        self.menu_4.addAction(self.action_9)
+        self.menu_4.addAction(self.action_10)
+        self.menu_4.addAction(self.action_11)
+        self.menu_5.addAction(self.action_12)
+        self.menu_5.addAction(self.action_13)
+        self.menu_5.addAction(self.action_16)
+        self.menu_5.addAction(self.action_17)
+        self.menu_5.addAction(self.action_18)
+        self.menu_5.addSeparator()
+        self.menu_5.addAction(self.action_20)
+
+        self.retranslateUi(MainWindow)
+
+        self.floor_veiw.setCurrentIndex(0)
+
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"School Map", None))
+        self.action_2.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e \u0438\u043d\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440\u0443", None))
+#if QT_CONFIG(shortcut)
+        self.action_2.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+I", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_3.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e \u0438\u043c\u0435\u043d\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.action_4.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e \u043f\u043e\u0447\u0442\u0435", None))
+        self.action_5.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0434\u0440\u0443\u0437\u0435\u0439", None))
+#if QT_CONFIG(shortcut)
+        self.action_5.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+F", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_6.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0443\u0447\u0435\u043d\u0438\u043a\u043e\u0432", None))
+#if QT_CONFIG(shortcut)
+        self.action_6.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+S", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_8.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043c\u0435\u043d\u0438\u0442\u044c \u0448\u043a\u043e\u043b\u0443", None))
+#if QT_CONFIG(shortcut)
+        self.action_8.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Alt+S", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_9.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435", None))
+#if QT_CONFIG(shortcut)
+        self.action_9.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Shift+S", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_10.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435", None))
+        self.action_11.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435", None))
+        self.action_12.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043f\u0440\u0430\u0432\u043a\u0430", None))
+#if QT_CONFIG(shortcut)
+        self.action_12.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_13.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u0438", None))
+        self.action_15.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0445\u043e\u0434", None))
+#if QT_CONFIG(shortcut)
+        self.action_15.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Q", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_16.setText(QCoreApplication.translate("MainWindow", u"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435", None))
+        self.action_17.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u043e\u0435 \u0441\u043e\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u0435", None))
+        self.action_18.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0446\u0435\u043d\u0437\u0438\u044f", None))
+        self.action_20.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0445\u043e\u0434", None))
+#if QT_CONFIG(shortcut)
+        self.action_20.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Q", None))
+#endif // QT_CONFIG(shortcut)
+        self.floor_veiw.setTabText(self.floor_veiw.indexOf(self.floor_1), QCoreApplication.translate("MainWindow", u"Этаж 1", None))
+        self.floor_veiw.setTabText(self.floor_veiw.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Этаж 2", None))
+        self.biggerVeiw.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.resetVeiw.setText(QCoreApplication.translate("MainWindow", u"1x", None))
+        self.smallerView.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0438\u0431\u043b\u0438\u0437\u0438\u0442\u044c", None))
+        self.currentSize.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0430\u0441\u0448\u0442\u0430\u0431: 1x", None))
+        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0414\u0440\u0443\u0437\u044c\u044f", None))
+        self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0434\u0440\u0443\u0433\u0430", None))
+        self.menu_3.setTitle(QCoreApplication.translate("MainWindow", u"\u0428\u043a\u043e\u043b\u0430", None))
+        self.menu_4.setTitle(QCoreApplication.translate("MainWindow", u"\u0420\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435", None))
+        self.menu_5.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430", None))
+    # retranslateUi
+

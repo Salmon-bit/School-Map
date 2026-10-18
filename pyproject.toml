@@ -11,5 +11,7 @@ files = [
     "ui/ui_login_form.py",
     "ui/ui_registration_form.py",
     "ui/ui_welcome_screen.py",
-    "ui/welcome_screen.ui"
+    "ui/welcome_screen.ui",
+    "ui/main_window.ui",
+    "ui/ui_main_window.py"
 ]

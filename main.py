@@ -11,7 +11,7 @@ from main_window import MainWindow
 
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     """This class provides a Welcome screen window"""
-    def __init__(self, app: QApplication):
+    def __init__(self, app: QApplication): #pylint: disable=redefined-outer-name
         super().__init__()
         self.app = app
 

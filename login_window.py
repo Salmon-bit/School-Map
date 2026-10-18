@@ -1,5 +1,4 @@
 """Login window module"""
-import json
 import hashlib
 from PySide6 import QtWidgets
 from ui.ui_login_form import Ui_LoginForm
@@ -9,7 +8,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
     """This class provides a login screen window"""
     def __init__(self, parent: QtWidgets.QWidget):
         super().__init__()
-        
+
         self.dm = DatabaseManager()
 
         self.setupUi(self)

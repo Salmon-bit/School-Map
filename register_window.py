@@ -1,5 +1,4 @@
 """Register window module"""
-import json
 import hashlib
 from PySide6 import QtWidgets
 from ui.ui_registration_form import Ui_Registration
@@ -10,9 +9,9 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
     """This class provides a register screen window"""
     def __init__(self):
         super().__init__()
-        
+
         self.dm = DatabaseManager()
-        
+
         self.setupUi(self)
 
         self.show_pswd = False
@@ -101,13 +100,12 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
                 )
                 return
 
-        with open('save.jsonlines', 'a', encoding='UTF-8') as f:
-            self.dm.register_user(
-                username,
-                email,
-                school,
-                hashlib.sha256(pswd.encode()).hexdigest(),
-            )
+        self.dm.register_user(
+            username,
+            email,
+            school,
+            hashlib.sha256(pswd.encode()).hexdigest()
+        )
 
         QtWidgets.QMessageBox.information(self, 'Инфо', 'Успешная регистрация!')
 

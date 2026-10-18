@@ -3,12 +3,16 @@ import json
 import hashlib
 from PySide6 import QtWidgets
 from ui.ui_registration_form import Ui_Registration
+from database_manager import DatabaseManager
 
 
 class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
     """This class provides a register screen window"""
     def __init__(self):
         super().__init__()
+        
+        self.dm = DatabaseManager()
+        
         self.setupUi(self)
 
         self.show_pswd = False
@@ -43,11 +47,7 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
         pswd_rep = self.password_repeat.text()
         school = self.school_select.currentText()
 
-        try:
-            with open('save.jsonlines', 'r', encoding='UTF-8') as f:
-                users = f.readlines()
-        except FileNotFoundError:
-            users = []
+        users = self.dm.get_users()
 
         if len(username) < 3 or len(username) > 32:
             QtWidgets.QMessageBox.critical(
@@ -86,15 +86,14 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
             return
 
         for u in users:
-            u = json.loads(u)
-            if u['username'] == username:
+            if u[1] == username:
                 QtWidgets.QMessageBox.critical(
                     self,
                     'Ошибка',
                     'Такой пользователь уже существует!'
                 )
                 return
-            if u['email'] == email:
+            if u[2] == email:
                 QtWidgets.QMessageBox.critical(
                     self,
                     'Ошибка',
@@ -103,13 +102,16 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
                 return
 
         with open('save.jsonlines', 'a', encoding='UTF-8') as f:
-            dc = {
-                'username': username,
-                'email': email,
-                'password': hashlib.sha256(pswd.encode()).hexdigest(),
-                'school': school
-            }
-            json.dump(dc, f)
-            f.write('\n')
+            self.dm.register_user(
+                username,
+                email,
+                school,
+                hashlib.sha256(pswd.encode()).hexdigest(),
+            )
 
         QtWidgets.QMessageBox.information(self, 'Инфо', 'Успешная регистрация!')
+
+    def destroy(self, /, destroyWindow: bool = ..., destroySubWindows: bool = ...) -> None: # pylint: disable=invalid-name
+        """Rewrite destroy function to automatically close database connection"""
+        self.dm.close_connection()
+        return super().destroy(destroyWindow, destroySubWindows)

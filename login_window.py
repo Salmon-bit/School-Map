@@ -3,12 +3,14 @@ import json
 import hashlib
 from PySide6 import QtWidgets
 from ui.ui_login_form import Ui_LoginForm
-
+from database_manager import DatabaseManager
 
 class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
     """This class provides a login screen window"""
     def __init__(self, parent: QtWidgets.QWidget):
         super().__init__()
+        
+        self.dm = DatabaseManager()
 
         self.setupUi(self)
         self.p = parent
@@ -22,10 +24,8 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         account_cred = self.account_cred.text()
         password = self.password.text()
 
-        try:
-            with open('save.jsonlines', 'r', encoding='UTF-8') as f:
-                users = f.readlines()
-        except FileNotFoundError:
+        users = self.dm.get_users()
+        if len(users) == 0:
             answer = QtWidgets.QMessageBox.question(
                 self,
                 'Ошибка',
@@ -43,10 +43,8 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
             return
 
         for u in users:
-            u = json.loads(u)
-
-            if account_cred in (u['username'], u['email'])\
-                and u['password'] == hashlib.sha256(password.encode()).hexdigest():
+            if account_cred in (u[1], u[2])\
+                and u[3] == hashlib.sha256(password.encode()).hexdigest():
                 # Do something
                 QtWidgets.QMessageBox.information(
                     self,
@@ -69,3 +67,8 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
             self.password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Normal)
 
         self.password_visible = not self.password_visible
+
+    def destroy(self, /, destroyWindow: bool = ..., destroySubWindows: bool = ...) -> None: #pylint: disable=invalid-name
+        """Rewrite destroy function to automatically close database connection"""
+        self.dm.close_connection()
+        return super().destroy(destroyWindow, destroySubWindows)

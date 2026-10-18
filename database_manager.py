@@ -1,6 +1,7 @@
 """This modules creates a DatabaseManager Class"""
 import sqlite3
 import hashlib
+import typing
 
 
 class DatabaseManager:
@@ -14,6 +15,31 @@ class DatabaseManager:
         """
         self.connection = sqlite3.connect(database)
         self.cur = self.connection.cursor()
+
+        self.cur.execute(
+            'CREATE TABLE IF NOT EXISTS users('
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
+            'username TEXT NOT NULL UNIQUE,'
+            'email TEXT NOT NULL UNIQUE,'
+            'password TEXT NOT NULL,'
+            'school TEXT NOT NULL)'
+        )
+        self.cur.execute(
+            'CREATE TABLE IF NOT EXISTS friends('
+            'user_id INTEGER,'
+            'friend_id INTEGER,'
+            'FOREIGN KEY (user_id) REFERENCES users(id),'
+            'FOREIGN KEY (friend_id) REFERENCES users(id))'
+        )
+        self.cur.execute(
+            'CREATE TABLE IF NOT EXISTS schedules('
+            'user_id INTEGER,'
+            'schedule TEXT NOT NULL,'
+            'FOREIGN KEY (user_id) REFERENCES users(id))'
+        )
+
+        self.connection.commit()
+
 
     def user_exists(self, username: str) -> bool:
         """This method checks for user in table users
@@ -214,6 +240,14 @@ class DatabaseManager:
 
         return False
 
+    def get_users(self) -> list[typing.Any]:
+        """Gets the users table
+        
+        :returns: Returns got table as list
+        :rtype: list[Any]
+        """
+        return self.cur.execute('SELECT * FROM users').fetchall()
+
     def close_connection(self) -> None:
         """Closes database connection"""
         self.connection.close()
@@ -224,18 +258,18 @@ if __name__  == "__main__":
     if not dm.user_exists('Salmon228'):
         dm.register_user(
             'Salmon228',
-            'salmon228@inbox.ru',
+            'e',
             'Школа №2070 ОП Энергия',
             hashlib.sha256('password'.encode()).hexdigest()
         )
     if not dm.user_exists('Oleg'):
         dm.register_user(
             'Oleg',
-            'shevcov_oleg@mail.ru',
+            'e',
             'Школа №2070 ОП Энергия',
             hashlib.sha256('qwerty'.encode()).hexdigest()
         )
 
-    dm.add_friends(2, 3)
+    print(dm.get_users())
 
     dm.close_connection()

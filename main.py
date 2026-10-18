@@ -11,8 +11,9 @@ from main_window import MainWindow
 
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     """This class provides a Welcome screen window"""
-    def __init__(self):
+    def __init__(self, app: QApplication):
         super().__init__()
+        self.app = app
 
         self.setupUi(self)
         self.rw = None
@@ -39,18 +40,29 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.lw.show()
 
     def open_main_window(self):
+        """This method opens a main Window. If it already exists, method will reopen it"""
         if self.mw is not None:
             self.mw.destroy()
             self.mw = None
         self.lw.destroy()
         self.lw = None
-        self.mw = MainWindow()
+        self.mw = MainWindow(self, self.app)
         self.mw.show()
         self.hide()
+
+    def quit(self):
+        """Quits the program"""
+        if self.lw is not None:
+            self.lw.destroy()
+        if self.rw is not None:
+            self.rw.destroy()
+        if self.mw is not None:
+            self.mw.destroy()
+        self.destroy()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ws = WelcomeScreen()
+    ws = WelcomeScreen(app)
     ws.show()
     sys.exit(app.exec())

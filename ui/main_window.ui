@@ -37,7 +37,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="sizeConstraint">
-      <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
      <item>
       <widget class="QTabWidget" name="floor_veiw">
@@ -48,7 +48,7 @@
         <attribute name="title">
          <string>Tab 1</string>
         </attribute>
-        <widget class="QWidget" name="school_veiw_floor_1" native="true">
+        <widget class="QWidget" name="school_view_floor_1" native="true">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -65,7 +65,7 @@
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="floor_2">
         <attribute name="title">
          <string>Tab 2</string>
         </attribute>
@@ -75,14 +75,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="biggerVeiw">
+        <widget class="QPushButton" name="biggerView">
          <property name="text">
           <string>Отдалить</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="resetVeiw">
+        <widget class="QPushButton" name="resetView">
          <property name="text">
           <string>1x</string>
          </property>
@@ -103,7 +103,7 @@
         <string>Масштаб: 1x</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -116,77 +116,81 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>20</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menuFriends">
     <property name="title">
      <string>Друзья</string>
     </property>
-    <widget class="QMenu" name="menu_2">
+    <widget class="QMenu" name="menuAddFriend">
      <property name="title">
       <string>Добавить друга</string>
      </property>
-     <addaction name="action_2"/>
-     <addaction name="action_3"/>
-     <addaction name="action_4"/>
+     <addaction name="actionAddFriendById"/>
+     <addaction name="actionAddFriendByUsername"/>
+     <addaction name="actionAddFriendByEmail"/>
     </widget>
-    <addaction name="menu_2"/>
-    <addaction name="action_5"/>
+    <addaction name="menuAddFriend"/>
+    <addaction name="actionViewFriends"/>
    </widget>
-   <widget class="QMenu" name="menu_3">
+   <widget class="QMenu" name="menuSchool">
     <property name="title">
      <string>Школа</string>
     </property>
-    <addaction name="action_6"/>
+    <addaction name="actionViewStudents"/>
     <addaction name="separator"/>
-    <addaction name="action_8"/>
+    <addaction name="actionChangeSchool"/>
    </widget>
-   <widget class="QMenu" name="menu_4">
+   <widget class="QMenu" name="menuSchedule">
     <property name="title">
      <string>Расписание</string>
     </property>
-    <addaction name="action_9"/>
-    <addaction name="action_10"/>
-    <addaction name="action_11"/>
+    <addaction name="actionAddSchedule"/>
+    <addaction name="actionEditSchedule"/>
+    <addaction name="actionRemoveSchedule"/>
    </widget>
-   <widget class="QMenu" name="menu_5">
+   <widget class="QMenu" name="menuProgramm">
     <property name="title">
      <string>Программа</string>
     </property>
-    <addaction name="action_12"/>
-    <addaction name="action_13"/>
-    <addaction name="action_16"/>
-    <addaction name="action_17"/>
-    <addaction name="action_18"/>
+    <addaction name="actionHelp"/>
+    <addaction name="actionCredits"/>
+    <addaction name="actionUserInfo"/>
+    <addaction name="actionEULA"/>
+    <addaction name="actionLicense"/>
     <addaction name="separator"/>
-    <addaction name="action_20"/>
+    <addaction name="actionExit"/>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_3"/>
-   <addaction name="menu_4"/>
-   <addaction name="menu_5"/>
+   <addaction name="menuFriends"/>
+   <addaction name="menuSchool"/>
+   <addaction name="menuSchedule"/>
+   <addaction name="menuProgramm"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action_2">
+  <action name="actionAddFriendById">
    <property name="text">
-    <string>По индентификатору</string>
+    <string>По идентификатору</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="actionAddFriendByUsername">
    <property name="text">
     <string>По имени пользователя</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="actionAddFriendByEmail">
+   <property name="icon">
+    <iconset theme="mail-unread">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>По почте</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="actionViewFriends">
    <property name="text">
     <string>Посмотреть друзей</string>
    </property>
@@ -194,9 +198,10 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="actionViewStudents">
    <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::EditFind"/>
+    <iconset theme="edit-find">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Посмотреть учеников</string>
@@ -205,7 +210,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="action_8">
+  <action name="actionChangeSchool">
    <property name="text">
     <string>Сменить школу</string>
    </property>
@@ -213,7 +218,7 @@
     <string>Ctrl+Alt+S</string>
    </property>
   </action>
-  <action name="action_9">
+  <action name="actionAddSchedule">
    <property name="text">
     <string>Добавить расписание</string>
    </property>
@@ -221,17 +226,21 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="action_10">
+  <action name="actionEditSchedule">
    <property name="text">
     <string>Изменить расписание</string>
    </property>
   </action>
-  <action name="action_11">
+  <action name="actionRemoveSchedule">
    <property name="text">
     <string>Посмотреть расписание</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset theme="dialog-information">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Справка</string>
    </property>
@@ -239,38 +248,35 @@
     <string>F1</string>
    </property>
   </action>
-  <action name="action_13">
+  <action name="actionCredits">
    <property name="text">
     <string>Создатели</string>
    </property>
   </action>
-  <action name="action_15">
-   <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::ListRemove"/>
-   </property>
-   <property name="text">
-    <string>Выход</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="action_16">
+  <action name="actionUserInfo">
    <property name="text">
     <string>Информация о пользователе</string>
    </property>
   </action>
-  <action name="action_17">
+  <action name="actionEULA">
    <property name="text">
     <string>Пользовательское соглашение</string>
    </property>
   </action>
-  <action name="action_18">
+  <action name="actionLicense">
+   <property name="icon">
+    <iconset theme="document-new">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Лицензия</string>
    </property>
   </action>
-  <action name="action_20">
+  <action name="actionExit">
+   <property name="icon">
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>

@@ -1,6 +1,7 @@
 """Creates Main Window Class"""
 import sys
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
+from PySide6.QtWidgets import QInputDialog
 from ui.ui_main_window import Ui_MainWindow
 from database_manager import DatabaseManager
 from school_draw import Drawer
@@ -73,13 +74,102 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             'Вернуть масштаб схемы выбранного Вами этажа к значению по умолчанию'
         )
 
+        # Bind add friends actions
+        self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
+        self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
+        self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
+
     def destroy(self):
         """Rewrite destroy function to automatically close database connection"""
         self.dm.close_connection()
         return super().destroy(True, True)
 
+    def add_friend_by_id(self):
+        """Adds friend by id"""
+        uid_2, result = QInputDialog.getInt(
+            self,
+            'Добавить друга по ID',
+            'Введите ID пользователя, которого хотите добавить  друзья:',
+            1,
+            1
+        )
+        if result:
+            try:
+                uid_1 = self.dm.get_id_by_username(self.username)
+                self.dm.add_friends(uid_1, uid_2)
+            except ValueError as e:
+                QMessageBox.critical(self, 'Ошибка!', e.args[0])
+                return
+
+        QMessageBox.information(
+            self,
+            'Инфо',
+            f'Вы с {self.dm.get_username_by_id(uid_2)} успешно стали друзьями!'
+        )
+
+    def add_friend_by_email(self):
+        """Adds friend by email"""
+        email_2, result = QInputDialog.getText(
+            self,
+            'Добавить друга по E-Mail',
+            'Введите E-Mail друга, которого хотите добавить в друзья:'
+        )
+        if result:
+            uid_2 = self.dm.get_id_by_email(email_2)
+            print(uid_2)
+            if uid_2 == '':
+                QMessageBox.critical(
+                    self,
+                    'Ошибка!',
+                    'Пользователя с таким E-Mail не существует в системе!'
+                )
+                return
+            uid_1 = self.dm.get_id_by_email(self.email)
+            print(uid_1, uid_2)
+            try:
+                self.dm.add_friends(uid_1, uid_2)
+            except ValueError as e:
+                QMessageBox.critical(self, 'Ошибка!', e.args[0])
+                return
+
+            QMessageBox.information(
+                self,
+                'Инфо',
+                f'Вы с {self.dm.get_username_by_email(email_2)} успешно стали друзьями!'
+            )
+
+    def add_friend_by_username(self):
+        """Adds friend by username"""
+        us_2, result = QInputDialog.getText(
+            self,
+            'Добавить друга по имени пользователя',
+            'Введите имя пользователя человека, с которым вы хотите стать друзьями:'
+        )
+        if result:
+            uid_2 = self.dm.get_id_by_username(us_2)
+            if uid_2 == '':
+                QMessageBox.critical(
+                    self,
+                    'Ошибка!',
+                    'Пользователя с таким E-Mail не существует в системе!'
+                )
+                return
+            uid_1 = self.dm.get_id_by_username(self.username)
+            try:
+                self.dm.add_friends(uid_1, uid_2)
+            except ValueError as e:
+                QMessageBox.critical(self, 'Ошибка!', e.args[0])
+                return
+
+            QMessageBox.information(
+                self,
+                'Инфо',
+                f'Вы с {us_2} успешно стали друзьями!'
+            )
+
+
 if __name__  == "__main__":
     app = QApplication(sys.argv)
-    mw = MainWindow(app=app)
+    mw = MainWindow("Salmon228", "salmon228@inbox.ru", "Test School", app=app)
     mw.show()
     sys.exit(app.exec())

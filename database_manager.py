@@ -207,11 +207,18 @@ class DatabaseManager:
         """
 
         if not self.check_friends(user_id_1, user_id_2):
-            self.cur.execute(
-                'INSERT INTO friends(user_id, friend_id) VALUES(?, ?), (?, ?)',
-                (user_id_1, user_id_2, user_id_2, user_id_1)
-            )
-            self.connection.commit()
+            if self.user_exists(self.get_username_by_id(user_id_1))\
+                and self.user_exists(self.get_username_by_id(user_id_2))\
+                and user_id_1 != user_id_2:
+                self.cur.execute(
+                    'INSERT INTO friends(user_id, friend_id) VALUES(?, ?), (?, ?)',
+                    (user_id_1, user_id_2, user_id_2, user_id_1)
+                )
+                self.connection.commit()
+            else:
+                raise ValueError('Пользователь с таким ID не найден!')
+        else:
+            raise ValueError('Пользователи уже являются друзьями!')
 
     def check_friends(self, user_id_1: str | int, user_id_2: str | int) -> bool:
         """Checks if users are friends
@@ -235,7 +242,7 @@ class DatabaseManager:
 
         for f1 in uf_1:
             for f2 in uf_2:
-                if f1 == user_id_2 or f2 == user_id_1:
+                if int(f1) == int(user_id_2) or f2 == int(user_id_1):
                     return True
 
         return False
@@ -268,6 +275,13 @@ if __name__  == "__main__":
             'e',
             'Школа №2070 ОП Энергия',
             hashlib.sha256('qwerty'.encode()).hexdigest()
+        )
+    if not dm.user_exists('Федя'):
+        dm.register_user(
+            'Федя',
+            'kolchin_fedor@mail.ru',
+            'Школа №2070 ОП Энергия',
+            hashlib.sha256('password'.encode()).hexdigest()
         )
 
     print(dm.get_users())

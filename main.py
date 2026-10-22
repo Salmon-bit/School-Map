@@ -7,7 +7,7 @@ from ui.ui_welcome_screen import Ui_WelcomeScreen
 from register_window import RegisterWindow
 from login_window import LoginWindow
 from main_window import MainWindow
-
+from database_manager import DatabaseManager
 
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     """This class provides a Welcome screen window"""
@@ -16,9 +16,14 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.app = app
 
         self.setupUi(self)
+        self.dm = DatabaseManager()
         self.rw = None
         self.lw = None
         self.mw = None
+
+        self.username = ''
+        self.email = ''
+        self.school = ''
 
         self.register_btn.clicked.connect(self.open_reg_window)
         self.login_btn.clicked.connect(self.open_log_window)
@@ -46,7 +51,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.mw = None
         self.lw.destroy()
         self.lw = None
-        self.mw = MainWindow(self, self.app)
+        self.mw = MainWindow(self.username, self.email, self.school, self, self.app)
         self.mw.show()
         self.hide()
 
@@ -58,7 +63,16 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.rw.destroy()
         if self.mw is not None:
             self.mw.destroy()
+        self.dm.close_connection()
         self.destroy()
+
+    def set_username(self, us: str):
+        self.username = us
+        self.email = self.dm.get_email_by_username(us)
+
+    def set_email(self, em: str):
+        self.email = em
+        self.username = self.dm.get_username_by_email(em)
 
 
 if __name__ == "__main__":

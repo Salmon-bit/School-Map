@@ -9,6 +9,7 @@ from login_window import LoginWindow
 from main_window import MainWindow
 from database_manager import DatabaseManager
 
+
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     """This class provides a Welcome screen window"""
     def __init__(self, app: QApplication): #pylint: disable=redefined-outer-name
@@ -69,6 +70,8 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.mw.destroy()
         self.dm.close_connection()
         self.destroy()
+
+        self.app.quit()
 
 
 if __name__ == "__main__":

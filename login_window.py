@@ -54,10 +54,6 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
                     'Инфо',
                     'Успешная авторизация!'
                 )
-                if '@' in account_cred:
-                    self.p.set_email(account_cred)
-                else:
-                    self.p.set_username(account_cred)
                 return
 
         QtWidgets.QMessageBox.critical(

@@ -78,5 +78,8 @@ build
 *.spec
 *.user
 .vscode
+.venv
 .ropeproject
 __pycache__
+School\ map
+!Makefile

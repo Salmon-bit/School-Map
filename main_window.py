@@ -114,11 +114,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QMessageBox.critical(self, 'Ошибка!', e.args[0])
                 return
 
-        QMessageBox.information(
-            self,
-            'Инфо',
-            f'Вы с {self.dm.get_username_by_id(uid_2)} успешно стали друзьями!'
-        )
+            QMessageBox.information(
+                self,
+                'Инфо',
+                f'Вы с {self.dm.get_username_by_id(uid_2)} успешно стали друзьями!'
+            )
 
     def add_friend_by_email(self):
         """Adds friend by email"""

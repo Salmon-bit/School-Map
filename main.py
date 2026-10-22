@@ -46,7 +46,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.mw = None
         self.lw.destroy()
         self.lw = None
-        self.mw = MainWindow(self, self.app)
+        self.mw = MainWindow(parent=self, app=self.app)
         self.mw.show()
         self.hide()
 
@@ -58,7 +58,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.rw.destroy()
         if self.mw is not None:
             self.mw.destroy()
-        self.destroy()
+        self.app.quit()
 
 
 if __name__ == "__main__":

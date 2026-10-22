@@ -37,7 +37,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionExit.triggered.connect(self.parent.quit)
         else:
             if app is not None:
-                self.actionExit.triggered.connect(app.quit)
+                self.actionExit.triggered.connect(exit)
             else:
                 sys.exit(1)
 

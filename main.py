@@ -10,6 +10,7 @@ from main_window import MainWindow
 from database_manager import DatabaseManager
 
 
+# pylint: disable=too-many-instance-attributes
 class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     """This class provides a Welcome screen window"""
     def __init__(self, app: QApplication): #pylint: disable=redefined-outer-name

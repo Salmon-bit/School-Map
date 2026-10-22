@@ -3,6 +3,7 @@ import sys
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
 from ui.ui_main_window import Ui_MainWindow
+from ui.ui_show_friends import ShowFriends
 from database_manager import DatabaseManager
 from school_draw import Drawer
 
@@ -16,6 +17,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                  parent: QWidget | None = None,
                  app: QApplication | None = None): #pylint: disable=redefined-outer-name
         super().__init__()
+
+        # Window
+        self.sf = None
+
         self.dm = DatabaseManager()
         self.parent = parent
         self.username = username
@@ -38,7 +43,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionExit.triggered.connect(self.parent.quit)
         else:
             if app is not None:
-                self.actionExit.triggered.connect(app.quit)
+                self.actionExit.triggered.connect(exit)
             else:
                 sys.exit(1)
 
@@ -78,6 +83,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
         self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
         self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
+        self.actionViewFriends.triggered.connect(self.veiw_friends)
+
+    def veiw_friends(self):
+        """Opens window that shows user friends"""
+        f = self.dm.get_user_friends(self.dm.get_id_by_username(self.username))
+        f = list(map(self.dm.get_username_by_id, f))
+        self.sf = ShowFriends(self.username, f)
+        self.sf.show()
 
     def destroy(self):
         """Rewrite destroy function to automatically close database connection"""
@@ -170,6 +183,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 if __name__  == "__main__":
     app = QApplication(sys.argv)
-    mw = MainWindow("Salmon228", "salmon228@inbox.ru", "Test School", app=app)
+    mw = MainWindow('Salmon228', app=app)
     mw.show()
     sys.exit(app.exec())

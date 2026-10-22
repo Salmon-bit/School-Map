@@ -21,9 +21,9 @@ class ShowFriends(QWidget):
 
     def setup_ui(self):
         """Setups user interface"""
-        self.setGeometry(300, 300, 300, 400)
-        self.setMaximumSize(300, 400)
-        self.setMinimumSize(300, 400)
+        self.setGeometry(300, 300, 300, 405)
+        self.setMaximumSize(300, 405)
+        self.setMinimumSize(300, 405)
         self.setWindowTitle("Friends")
 
         l = QLabel(f'Друзья {self.username}', self)

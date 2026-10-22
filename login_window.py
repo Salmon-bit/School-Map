@@ -44,8 +44,10 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         for u in users:
             if account_cred in (u[1], u[2])\
                 and u[3] == hashlib.sha256(password.encode()).hexdigest():
-                us = account_cred if '@' not in account_cred else self.dm.get_username_by_email(account_cred)
-                em = account_cred if '@' in account_cred else self.dm.get_email_by_username(account_cred)
+                us = account_cred if '@' not in account_cred else\
+                    self.dm.get_username_by_email(account_cred)
+                em = account_cred if '@' in account_cred else\
+                    self.dm.get_email_by_username(account_cred)
                 self.p.open_main_window(us, em, '')
                 QtWidgets.QMessageBox.information(
                     self,

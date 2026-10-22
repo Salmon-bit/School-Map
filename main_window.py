@@ -164,7 +164,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QMessageBox.critical(
                     self,
                     'Ошибка!',
-                    'Пользователя с таким E-Mail не существует в системе!'
+                    'Пользователя с таким именем пользователя не существует в системе!'
                 )
                 return
             uid_1 = self.dm.get_id_by_username(self.username)

@@ -70,14 +70,6 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         self.dm.close_connection()
         self.destroy()
 
-    def set_username(self, us: str):
-        self.username = us
-        self.email = self.dm.get_email_by_username(us)
-
-    def set_email(self, em: str):
-        self.email = em
-        self.username = self.dm.get_username_by_email(em)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

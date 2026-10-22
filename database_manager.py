@@ -209,14 +209,14 @@ class DatabaseManager:
         if not self.check_friends(user_id_1, user_id_2):
             if self.user_exists(self.get_username_by_id(user_id_1))\
                 and self.user_exists(self.get_username_by_id(user_id_2))\
-                and user_id_1 != user_id_2:
+                and int(user_id_1) != int(user_id_2):
                 self.cur.execute(
                     'INSERT INTO friends(user_id, friend_id) VALUES(?, ?), (?, ?)',
                     (user_id_1, user_id_2, user_id_2, user_id_1)
                 )
                 self.connection.commit()
             else:
-                raise ValueError('Пользователь с таким ID не найден!')
+                raise ValueError('Пользователь с таким ID не найден, или это вы!')
         else:
             raise ValueError('Пользователи уже являются друзьями!')
 

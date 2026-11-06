@@ -255,6 +255,26 @@ class DatabaseManager:
         """
         return self.cur.execute('SELECT * FROM users').fetchall()
 
+    def get_students(self, school: str) -> list[int]:
+        """Gets ids of users from specified school
+        
+        :param school: School to fetch
+        :type school: str
+        :returns: Returns list of ids
+        :rtype: list[int]
+        """
+
+        return list(
+            map(int, 
+                [
+                    i[0] for i in self.cur.execute('SELECT id FROM users WHERE school = ?', (school,)).fetchall()
+                ]
+            )
+        )
+
+    def get_school_by_username(self, username) -> str:
+        return self.cur.execute('SELECT school FROM users WHERE username = ?', (username,)).fetchall()[0][0]
+
     def close_connection(self) -> None:
         """Closes database connection"""
         self.connection.close()
@@ -285,5 +305,6 @@ if __name__  == "__main__":
         )
 
     print(dm.get_users())
+    print(dm.get_students('Школа №2070'))
 
     dm.close_connection()

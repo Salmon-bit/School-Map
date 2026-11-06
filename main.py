@@ -49,15 +49,14 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
     def open_main_window(
             self,
             username: str,
-            email: str,
-            school: str):
+            email: str):
         """This method opens a main Window. If it already exists, method will reopen it"""
         if self.mw is not None:
             self.mw.destroy()
             self.mw = None
         self.lw.destroy()
         self.lw = None
-        self.mw = MainWindow(username, email, school, self, self.app)
+        self.mw = MainWindow(username, email, self, self.app)
         self.mw.show()
         self.hide()
 

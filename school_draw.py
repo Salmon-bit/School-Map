@@ -4,13 +4,16 @@ from PySide6.QtGui import QPaintEvent, QPainter, QColor #pylint: disable=no-name
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import QPoint
 from PySide6.QtCore import Qt
+from web import get_school_floor
 
 
 class Drawer(QWidget):
     """Class that draws school maps from files"""
-    def __init__(self, parent: QWidget | None = None):
+    def __init__(self, school: str, floor: int, parent: QWidget | None = None):
         super().__init__(parent)
         self.do_paint = False
+        self.school = school
+        self.floor = floor
 
     def trigger_paint(self):
         """Triggers to paint widget manually"""
@@ -28,7 +31,13 @@ class Drawer(QWidget):
     def draw(self, qp: QPainter):
         """Draw method"""
         sc = QColor("blue")
-        with open('assets/school_floor_1.json', 'r', newline='', encoding='UTF-8') as f:
+        o = ""
+        for i in self.school:
+            if i.isdigit():
+                o += i
+        self.school = o
+        get_school_floor(self.school, self.floor)
+        with open(f'assets/school_{self.school}_floor_{self.floor}.json', 'r', newline='', encoding='UTF-8') as f:
             data = json.load(f)
         points = [QPoint(p[0], p[1]) for p in data["points"]]
         qp.drawPolygon(points)

@@ -4,6 +4,7 @@ from PySide6 import QtWidgets
 from ui.ui_login_form import Ui_LoginForm
 from database_manager import DatabaseManager
 
+
 class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
     """This class provides a login screen window"""
     def __init__(self, parent: QtWidgets.QWidget):
@@ -48,7 +49,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
                     self.dm.get_username_by_email(account_cred)
                 em = account_cred if '@' in account_cred else\
                     self.dm.get_email_by_username(account_cred)
-                self.p.open_main_window(us, em, '')
+                self.p.open_main_window(us, em)
                 QtWidgets.QMessageBox.information(
                     self,
                     'Инфо',

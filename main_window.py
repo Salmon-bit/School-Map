@@ -1,9 +1,10 @@
 """Creates Main Window Class"""
 import sys
+import webbrowser
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
 from ui.ui_main_window import Ui_MainWindow
-from ui.ui_show_friends import ShowFriends
+from ui.ui_list_widget import ListWidget
 from database_manager import DatabaseManager
 from school_draw import Drawer
 
@@ -13,19 +14,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self,
                  username: str = "",
                  email: str = "",
-                 school: str = "",
                  parent: QWidget | None = None,
                  app: QApplication | None = None): #pylint: disable=redefined-outer-name
         super().__init__()
 
         # Window
         self.sf = None
+        self.ss = None
+        self.cr = None
+        self.ui = None
 
         self.dm = DatabaseManager()
         self.parent = parent
         self.username = username
         self.email = email
-        self.school = school
+        self.school = self.dm.get_school_by_username(self.username)
 
         self.setupUi(self)
 
@@ -34,7 +37,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.school_view_floor_1.deleteLater()
 
-        self.school_veiw_floor_1 = Drawer(parent)
+        self.school_veiw_floor_1 = Drawer(self.school, 1, parent)
         self.school_veiw_floor_1.setGeometry(geometry)
 
         self.school_veiw_floor_1.trigger_paint()
@@ -83,14 +86,65 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
         self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
         self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
+        
         self.actionViewFriends.triggered.connect(self.veiw_friends)
+        self.actionViewStudents.triggered.connect(self.veiw_students)
+
+        self.actionHelp.triggered.connect(self.open_help)
+        self.actionCredits.triggered.connect(self.open_credits)
+        self.actionUserInfo.triggered.connect(self.view_user_info)
+
+    def view_user_info(self):
+        """Opens a new window that shows user info"""
+        if self.ui is not None:
+            self.ui = None
+
+        self.ui = ListWidget(
+            'Пользователь',
+            [
+                f"ID: {self.dm.get_id_by_username(self.username)}",
+                f"Имя пользователя: {self.username}",
+                f"E-Mail: {self.dm.get_email_by_username(self.username)}",
+                f"Школа: {self.dm.get_school_by_username(self.username)}"
+            ],
+            'User'
+        )
+        self.ui.show()
+
+    def open_credits(self):
+        """Opens a new window that shows developers"""
+        if self.cr is not None:
+            self.cr = None
+        self.cr = ListWidget(
+            "Создатели:",
+            [
+                "Главный разработчик: Salmon228",
+                "Тестировщик: Glases_11",
+                "Тестировщик: Alen"
+            ],
+            "Developers"
+        )
+        self.cr.show()
+
+    def open_help(self):
+        """Opens a github Readme"""
+        webbrowser.open("https://github.com/Salmon-bit/School-Map/blob/main/README.md", 2)
 
     def veiw_friends(self):
         """Opens window that shows user friends"""
         f = self.dm.get_user_friends(self.dm.get_id_by_username(self.username))
         f = list(map(self.dm.get_username_by_id, f))
-        self.sf = ShowFriends(self.username, f)
+        self.sf = ListWidget(self.username, f, 'Friends')
         self.sf.show()
+
+    def veiw_students(self):
+        """Opens a new window that shows students in school"""
+        print(self.username)
+        f = self.dm.get_students(self.dm.get_school_by_username(self.username))
+        f = list(map(self.dm.get_username_by_id, f))
+        self.school = self.dm.get_school_by_username(self.username)
+        self.ss = ListWidget(f'Ученики школы \"{self.school}\"', f, "Students")
+        self.ss.show()
 
     def destroy(self):
         """Rewrite destroy function to automatically close database connection"""
@@ -183,6 +237,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 if __name__  == "__main__":
     app = QApplication(sys.argv)
-    mw = MainWindow('Salmon228', app=app)
+    mw = MainWindow('Игорь', app=app)
     mw.show()
     sys.exit(app.exec())

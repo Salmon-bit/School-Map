@@ -1,0 +1,3 @@
+[MAIN]
+ignored-modules=PySide6.QtWidgets
+ignore-paths=^ui/ui_.*[.]py$

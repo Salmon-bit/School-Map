@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>School Map</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>781</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <widget class="QTabWidget" name="floor_veiw">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="floor_1">
+        <attribute name="title">
+         <string>Tab 1</string>
+        </attribute>
+        <widget class="QWidget" name="school_view_floor_1" native="true">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>741</width>
+           <height>421</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="floor_2">
+        <attribute name="title">
+         <string>Tab 2</string>
+        </attribute>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="biggerView">
+         <property name="text">
+          <string>Отдалить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="resetView">
+         <property name="text">
+          <string>1x</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="smallerView">
+         <property name="text">
+          <string>Приблизить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="currentSize">
+       <property name="text">
+        <string>Масштаб: 1x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFriends">
+    <property name="title">
+     <string>Друзья</string>
+    </property>
+    <widget class="QMenu" name="menuAddFriend">
+     <property name="title">
+      <string>Добавить друга</string>
+     </property>
+     <addaction name="actionAddFriendById"/>
+     <addaction name="actionAddFriendByUsername"/>
+     <addaction name="actionAddFriendByEmail"/>
+    </widget>
+    <addaction name="menuAddFriend"/>
+    <addaction name="actionViewFriends"/>
+   </widget>
+   <widget class="QMenu" name="menuSchool">
+    <property name="title">
+     <string>Школа</string>
+    </property>
+    <addaction name="actionViewStudents"/>
+    <addaction name="separator"/>
+    <addaction name="actionChangeSchool"/>
+   </widget>
+   <widget class="QMenu" name="menuSchedule">
+    <property name="title">
+     <string>Расписание</string>
+    </property>
+    <addaction name="actionAddSchedule"/>
+    <addaction name="actionEditSchedule"/>
+    <addaction name="actionRemoveSchedule"/>
+   </widget>
+   <widget class="QMenu" name="menuProgramm">
+    <property name="title">
+     <string>Программа</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionCredits"/>
+    <addaction name="actionUserInfo"/>
+    <addaction name="actionEULA"/>
+    <addaction name="actionLicense"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFriends"/>
+   <addaction name="menuSchool"/>
+   <addaction name="menuSchedule"/>
+   <addaction name="menuProgramm"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAddFriendById">
+   <property name="text">
+    <string>По идентификатору</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionAddFriendByUsername">
+   <property name="text">
+    <string>По имени пользователя</string>
+   </property>
+  </action>
+  <action name="actionAddFriendByEmail">
+   <property name="icon">
+    <iconset theme="mail-unread">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>По почте</string>
+   </property>
+  </action>
+  <action name="actionViewFriends">
+   <property name="text">
+    <string>Посмотреть друзей</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionViewStudents">
+   <property name="icon">
+    <iconset theme="edit-find">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Посмотреть учеников</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionChangeSchool">
+   <property name="text">
+    <string>Сменить школу</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+S</string>
+   </property>
+  </action>
+  <action name="actionAddSchedule">
+   <property name="text">
+    <string>Добавить расписание</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionEditSchedule">
+   <property name="text">
+    <string>Изменить расписание</string>
+   </property>
+  </action>
+  <action name="actionRemoveSchedule">
+   <property name="text">
+    <string>Посмотреть расписание</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset theme="dialog-information">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Справка</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionCredits">
+   <property name="text">
+    <string>Создатели</string>
+   </property>
+  </action>
+  <action name="actionUserInfo">
+   <property name="text">
+    <string>Информация о пользователе</string>
+   </property>
+  </action>
+  <action name="actionEULA">
+   <property name="text">
+    <string>Пользовательское соглашение</string>
+   </property>
+  </action>
+  <action name="actionLicense">
+   <property name="icon">
+    <iconset theme="document-new">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Лицензия</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,18 @@
+[project]
+name = "School Map"
+
+[tool.pyside6-project]
+files = [
+    "login_window.py",
+    "main.py",
+    "register_window.py",
+    "ui/login_form.ui",
+    "ui/registration_form.ui",
+    "ui/ui_login_form.py",
+    "ui/ui_registration_form.py",
+    "ui/ui_welcome_screen.py",
+    "ui/welcome_screen.ui",
+    "ui/main_window.ui",
+    "ui/ui_main_window.py",
+    "ui/ui_show_friends.py"
+]

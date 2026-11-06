@@ -9,9 +9,9 @@ from database_manager import DatabaseManager
 from school_draw import Drawer
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance-attributes
     """Main Window class. The main window of the program."""
-    def __init__(self,
+    def __init__(self, # pylint: disable=too-many-statements
                  username: str = "",
                  email: str = "",
                  parent: QWidget | None = None,
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
         self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
         self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
-        
+
         self.actionViewFriends.triggered.connect(self.veiw_friends)
         self.actionViewStudents.triggered.connect(self.veiw_students)
 

@@ -13,13 +13,14 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
     :type branch: str
     """
     r = requests.get(
-        f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json'
+        f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json', #pylint: disable=line-too-long
+        timeout=10
     )
 
     if r.status_code != 200:
         print(
             'Error getting file via url: ' + \
-            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json'
+            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json' #pylint: disable=line-too-long
         )
         return
 
@@ -28,7 +29,7 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
 
 # def get_database(branch: str = "work"):
 #     """Fetching database from repo
-    
+
 #     :param branch: The repo branch function should get file
 #     :type branch: str
 #     """

@@ -265,15 +265,16 @@ class DatabaseManager:
         """
 
         return list(
-            map(int, 
+            map(int,
                 [
-                    i[0] for i in self.cur.execute('SELECT id FROM users WHERE school = ?', (school,)).fetchall()
+                    i[0] for i in self.cur.execute('SELECT id FROM users WHERE school = ?', (school,)).fetchall() # pylint: disable=line-too-long
                 ]
             )
         )
 
     def get_school_by_username(self, username) -> str:
-        return self.cur.execute('SELECT school FROM users WHERE username = ?', (username,)).fetchall()[0][0]
+        """Returns school name that gets from user"""
+        return self.cur.execute('SELECT school FROM users WHERE username = ?', (username,)).fetchall()[0][0] # pylint: disable=line-too-long
 
     def close_connection(self) -> None:
         """Closes database connection"""

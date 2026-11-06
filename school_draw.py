@@ -1,6 +1,9 @@
 """Drawer Module"""
+import json
 from PySide6.QtGui import QPaintEvent, QPainter, QColor #pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import QPoint
+from PySide6.QtCore import Qt
 
 
 class Drawer(QWidget):
@@ -24,4 +27,8 @@ class Drawer(QWidget):
 
     def draw(self, qp: QPainter):
         """Draw method"""
-        qp.fillRect(30, 30, 100, 100, QColor(255, 0, 0))
+        sc = QColor("blue")
+        with open('assets/school_floor_1.json', 'r', newline='', encoding='UTF-8') as f:
+            data = json.load(f)
+        points = [QPoint(p[0], p[1]) for p in data["points"]]
+        qp.drawPolygon(points)

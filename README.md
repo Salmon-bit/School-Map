@@ -37,7 +37,7 @@
 4. Выполните в терминале: `python -m venv .venv`.
 5. В зависимости от вашей ОС и оболочки консоли выполните:
    - Если у вас *Windows*:
-   - - Выполните в терминале: `.\.venv\Scripts\activate.bat`, если вы открыли *CMD* или `.\.venv\Scripts\activate.ps1` если вы открыли *Power Shell*.
+   - - Выполните в терминале: `.\.venv\Scripts\activate.bat`, если вы открыли *CMD*, или `.\.venv\Scripts\activate.ps1`, если вы открыли *Power Shell*.
    - Если у вас *Unix-подобная система*:
    - - Выполните в терминале `source ./.venv/bin/activate`. Расширение исполняемого файла зависит от оболочки консоли, которую вы используете.
 6. Выполните в терминале: `pip install --upgrade pip`.

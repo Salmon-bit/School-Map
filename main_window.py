@@ -1,7 +1,7 @@
 """Creates Main Window Class"""
 import sys
 import webbrowser
-from PySide6.QtCore import QSize
+from PySide6.QtCore import QSize # pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
 from ui.ui_main_window import Ui_MainWindow

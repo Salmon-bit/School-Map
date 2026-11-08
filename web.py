@@ -1,5 +1,8 @@
 """The internet-files fetching module"""
+from os.path import exists
+
 import requests
+import os
 
 
 def get_school_floor(school: str, floor: int, branch: str = "main"):
@@ -12,10 +15,13 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
     :param branch: The repo branch function should get file
     :type branch: str
     """
-    r = requests.get(
-        f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json', #pylint: disable=line-too-long
-        timeout=10
-    )
+    try:
+        r = requests.get(
+            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json', #pylint: disable=line-too-long
+            timeout=10
+        )
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+        return
 
     if r.status_code != 200:
         print(
@@ -23,8 +29,24 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
             f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json' #pylint: disable=line-too-long
         )
         return
-
+    os.makedirs('assets', exist_ok=True)
     with open(f'assets/school_{school}_floor_{floor}.json', 'w', encoding='UTF-8', newline='') as f:
+        f.write(r.text)
+
+def get_available_schools(branch: str = "main"):
+    try:
+        r = requests.get(
+            url=f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/schools.txt',
+            timeout=10
+        )
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+        return
+
+    if r.status_code != 200:
+        print('Error getting available schools')
+        return
+    os.makedirs('assets', exist_ok=True)
+    with open('assets/schools.txt', 'w', encoding='UTF-8', newline='') as f:
         f.write(r.text)
 
 # def get_database(branch: str = "work"):

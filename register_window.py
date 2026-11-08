@@ -3,7 +3,7 @@ import hashlib
 from PySide6 import QtWidgets
 from ui.ui_registration_form import Ui_Registration
 from database_manager import DatabaseManager
-
+import web
 
 class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
     """This class provides a register screen window"""
@@ -21,6 +21,21 @@ class RegisterWindow(QtWidgets.QWidget, Ui_Registration):
         self.show_password_rep.clicked.connect(self.show_password_rep_f)
 
         self.register_2.clicked.connect(self.register)
+
+        web.get_available_schools()
+        try:
+            with open('assets/schools.txt', 'r', encoding='UTF-8', newline='') as f:
+                raw_schools = f.readlines()
+                schools = []
+                for sc in raw_schools:
+                    schools.append(sc.strip())
+            self.school_select.addItems(schools)
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                "Ошибка получения файла с сервера.\nПроверьте ваше интернет-подключение."
+            )
 
     def show_password_f(self):
         """This method shows or hides password"""

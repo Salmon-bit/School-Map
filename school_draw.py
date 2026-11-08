@@ -1,5 +1,6 @@
 """Drawer Module"""
 import json
+from PySide6 import QtWidgets
 from PySide6.QtGui import QPaintEvent, QPainter #pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QWidget #pylint: disable=no-name-in-module
 from PySide6.QtCore import QPoint #pylint: disable=no-name-in-module
@@ -36,7 +37,14 @@ class Drawer(QWidget):
 
     def draw(self, qp: QPainter):
         """Draw method"""
-        with open(f'assets/school_{self.school}_floor_{self.floor}.json', 'r', newline='', encoding='UTF-8') as f: #pylint: disable=line-too-long
-            data = json.load(f)
-        points = [QPoint(p[0], p[1]) for p in data["points"]]
-        qp.drawPolygon(points)
+        try:
+            with open(f'assets/school_{self.school}_floor_{self.floor}.json', 'r', newline='', encoding='UTF-8') as f: #pylint: disable=line-too-long
+                data = json.load(f)
+            points = [QPoint(p[0], p[1]) for p in data["points"]]
+            qp.drawPolygon(points)
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Ошибка',
+                "Ошибка получения файла с сервера.\nПроверьте ваше интернет-подключение."
+            )

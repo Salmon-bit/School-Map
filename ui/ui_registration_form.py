@@ -93,7 +93,6 @@ class Ui_Registration(object):
 
         self.school_select = QComboBox(self.verticalLayoutWidget)
         self.school_select.addItem("")
-        self.school_select.addItem("")
         self.school_select.setObjectName(u"school_select")
 
         self.formLayout.setWidget(4, QFormLayout.ItemRole.FieldRole, self.school_select)
@@ -182,7 +181,6 @@ class Ui_Registration(object):
         self.label_5.setText(QCoreApplication.translate("Registration", u"\u041f\u043e\u0432\u0442\u043e\u0440 \u043f\u0430\u0440\u043e\u043b\u044f", None))
         self.label_6.setText(QCoreApplication.translate("Registration", u"\u0428\u043a\u043e\u043b\u0430", None))
         self.school_select.setItemText(0, QCoreApplication.translate("Registration", u"\u0428\u043a\u043e\u043b\u0430", None))
-        self.school_select.setItemText(1, QCoreApplication.translate("Registration", u"\u0428\u043a\u043e\u043b\u0430 \u21162070", None))
 
         self.password.setInputMask("")
         self.password.setPlaceholderText(QCoreApplication.translate("Registration", u"\u0412\u0430\u0448 \u043f\u0430\u0440\u043e\u043b\u044c", None))

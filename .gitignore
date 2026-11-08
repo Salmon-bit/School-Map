@@ -83,3 +83,4 @@ build
 __pycache__
 School\ map
 !Makefile
+*.db

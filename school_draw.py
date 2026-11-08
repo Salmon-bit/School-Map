@@ -14,6 +14,13 @@ class Drawer(QWidget):
         self.school = school
         self.floor = floor
 
+        o = ""
+        for i in self.school:
+            if i.isdigit():
+                o += i
+        self.school = o
+        get_school_floor(self.school, self.floor)
+
     def trigger_paint(self):
         """Triggers to paint widget manually"""
         self.do_paint = True
@@ -29,12 +36,6 @@ class Drawer(QWidget):
 
     def draw(self, qp: QPainter):
         """Draw method"""
-        o = ""
-        for i in self.school:
-            if i.isdigit():
-                o += i
-        self.school = o
-        get_school_floor(self.school, self.floor)
         with open(f'assets/school_{self.school}_floor_{self.floor}.json', 'r', newline='', encoding='UTF-8') as f: #pylint: disable=line-too-long
             data = json.load(f)
         points = [QPoint(p[0], p[1]) for p in data["points"]]

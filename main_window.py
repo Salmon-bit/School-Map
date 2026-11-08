@@ -1,6 +1,7 @@
 """Creates Main Window Class"""
 import sys
 import webbrowser
+from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
 from ui.ui_main_window import Ui_MainWindow
@@ -31,6 +32,8 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.school = self.dm.get_school_by_username(self.username)
 
         self.setupUi(self)
+        self.setMaximumSize(QSize(800, 600))
+        self.setMinimumSize(QSize(800, 600))
 
         parent = self.school_view_floor_1.parentWidget()
         geometry = self.school_view_floor_1.geometry()
@@ -82,17 +85,38 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
             'Вернуть масштаб схемы выбранного Вами этажа к значению по умолчанию'
         )
 
-        # Bind add friends actions
+        # Friends section
         self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
         self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
         self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
-
         self.actionViewFriends.triggered.connect(self.veiw_friends)
+
+        # School section
         self.actionViewStudents.triggered.connect(self.veiw_students)
 
+        # Scheudle section
+        # ...
+
+        # Programm section
         self.actionHelp.triggered.connect(self.open_help)
         self.actionCredits.triggered.connect(self.open_credits)
         self.actionUserInfo.triggered.connect(self.view_user_info)
+        self.actionLicense.triggered.connect(self.view_license)
+        self.actionEULA.triggered.connect(self.view_eula)
+
+    def view_eula(self):
+        """Opens a new tab in browser with EULA"""
+        webbrowser.open(
+            url='https://github.com/Salmon-bit/School-Map/blob/main/EULA.md',
+            new=2
+        )
+
+    def view_license(self):
+        """Opens a new tab in browser with License"""
+        webbrowser.open(
+            url='https://github.com/Salmon-bit/School-Map?tab=MIT-1-ov-file',
+            new=2
+        )
 
     def view_user_info(self):
         """Opens a new window that shows user info"""

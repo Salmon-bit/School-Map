@@ -286,14 +286,14 @@ if __name__  == "__main__":
     if not dm.user_exists('Salmon228'):
         dm.register_user(
             'Salmon228',
-            'e',
+            'email',
             'Школа №2070 ОП Энергия',
             hashlib.sha256('password'.encode()).hexdigest()
         )
     if not dm.user_exists('Oleg'):
         dm.register_user(
             'Oleg',
-            'e',
+            'email2',
             'Школа №2070 ОП Энергия',
             hashlib.sha256('qwerty'.encode()).hexdigest()
         )

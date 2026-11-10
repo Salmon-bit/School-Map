@@ -8,6 +8,7 @@ from ui.ui_main_window import Ui_MainWindow
 from ui.ui_list_widget import ListWidget
 from database_manager import DatabaseManager
 from school_draw import Drawer
+from schedule_editor import ScheduleEdit
 
 
 class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance-attributes
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.ss = None
         self.cr = None
         self.ui = None
+        self.se = None
 
         self.dm = DatabaseManager()
         self.parent = parent
@@ -95,7 +97,7 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.actionViewStudents.triggered.connect(self.veiw_students)
 
         # Scheudle section
-        # ...
+        self.actionAddSchedule.triggered.connect(self.add_schedule)
 
         # Programm section
         self.actionHelp.triggered.connect(self.open_help)
@@ -103,6 +105,14 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.actionUserInfo.triggered.connect(self.view_user_info)
         self.actionLicense.triggered.connect(self.view_license)
         self.actionEULA.triggered.connect(self.view_eula)
+
+    def add_schedule(self):
+        if self.se is not None:
+            self.se.destroy()
+            self.se = None
+
+        self.se = ScheduleEdit()
+        self.se.show()
 
     def view_eula(self):
         """Opens a new tab in browser with EULA"""
@@ -261,6 +271,6 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
 
 if __name__  == "__main__":
     app = QApplication(sys.argv)
-    mw = MainWindow('Игорь', app=app)
+    mw = MainWindow('Salmon228', app=app)
     mw.show()
     sys.exit(app.exec())

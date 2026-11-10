@@ -14,5 +14,7 @@ files = [
     "ui/welcome_screen.ui",
     "ui/main_window.ui",
     "ui/ui_main_window.py",
-    "ui/ui_show_friends.py"
+    "ui/ui_show_friends.py",
+    "ui/schedule_editor.ui",
+    "ui/ui_schedule_editor.py"
 ]

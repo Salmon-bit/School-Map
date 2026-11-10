@@ -85,3 +85,4 @@ School\ map
 !Makefile
 school_map.db
 .idea/*
+assets/schedule.json

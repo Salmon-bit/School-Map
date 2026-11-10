@@ -1,14 +1,15 @@
 """Drawer Module"""
 import json
 from PySide6 import QtWidgets
-from PySide6.QtGui import QPaintEvent, QPainter #pylint: disable=no-name-in-module
-from PySide6.QtWidgets import QWidget #pylint: disable=no-name-in-module
-from PySide6.QtCore import QPoint #pylint: disable=no-name-in-module
+from PySide6.QtGui import QPaintEvent, QPainter  # pylint: disable=no-name-in-module
+from PySide6.QtWidgets import QWidget  # pylint: disable=no-name-in-module
+from PySide6.QtCore import QPoint  # pylint: disable=no-name-in-module
 from web import get_school_floor
 
 
 class Drawer(QWidget):
     """Class that draws school maps from files"""
+
     def __init__(self, school: str, floor: int, parent: QWidget | None = None):
         super().__init__(parent)
         self.do_paint = False
@@ -27,7 +28,7 @@ class Drawer(QWidget):
         self.do_paint = True
         self.update()
 
-    def paintEvent(self, _event: QPaintEvent) -> None: #pylint: disable=invalid-name
+    def paintEvent(self, _event: QPaintEvent) -> None:  # pylint: disable=invalid-name
         """Draws school map"""
         if not self.do_paint:
             return
@@ -38,13 +39,20 @@ class Drawer(QWidget):
     def draw(self, qp: QPainter):
         """Draw method"""
         try:
-            with open(f'assets/school_{self.school}_floor_{self.floor}.json', 'r', newline='', encoding='UTF-8') as f: #pylint: disable=line-too-long
+            with open(
+                    f'assets/school_{self.school}_floor_{self.floor}.json',
+                    'r',
+                    newline='',
+                    encoding='UTF-8'
+            ) as f:
                 data = json.load(f)
             points = [QPoint(p[0], p[1]) for p in data["points"]]
+            [qp.drawText(QPoint(c[1], c[2]), c[0]) for c in data['cabinets']]
             qp.drawPolygon(points)
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(
                 self,
-                'Ошибка',
-                "Ошибка получения файла с сервера.\nПроверьте ваше интернет-подключение."
+                'Ошибка загрузки файла',
+                "Ошибка загрузки файла с инренет-репощитория.\
+                Проверьте ваше интернет-подключение"
             )

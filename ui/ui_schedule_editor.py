@@ -8,13 +8,17 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject, QRect,
-                            QSize, QTime, Qt)
-from PySide6.QtGui import (QFont)
-from PySide6.QtWidgets import (QCheckBox, QFormLayout, QHBoxLayout,
-                               QLabel, QListWidget, QPushButton,
-                               QSizePolicy, QSpacerItem, QSpinBox, QTabWidget,
-                               QTimeEdit, QVBoxLayout, QWidget)
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QHBoxLayout,
+    QLabel, QListWidget, QListWidgetItem, QPushButton,
+    QSizePolicy, QSpacerItem, QSpinBox, QTabWidget,
+    QTimeEdit, QVBoxLayout, QWidget)
 
 class Ui_ScheduleEdit(object):
     def setupUi(self, ScheduleEdit):
@@ -30,7 +34,7 @@ class Ui_ScheduleEdit(object):
         ScheduleEdit.setMaximumSize(QSize(800, 450))
         self.horizontalLayoutWidget = QWidget(ScheduleEdit)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(0, 0, 820, 401))
+        self.horizontalLayoutWidget.setGeometry(QRect(0, 0, 820, 414))
         self.horizontalLayout = QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setSpacing(5)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -47,20 +51,20 @@ class Ui_ScheduleEdit(object):
         font = QFont()
         font.setBold(True)
         self.label.setFont(font)
-        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout.addWidget(self.label)
 
         self.tabWidget = QTabWidget(self.horizontalLayoutWidget)
         self.tabWidget.setObjectName(u"tabWidget")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy2)
         self.tabWidget.setMinimumSize(QSize(450, 0))
-        self.tabWidget.setTabPosition(QTabWidget.North)
-        self.tabWidget.setElideMode(Qt.ElideLeft)
+        self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
+        self.tabWidget.setElideMode(Qt.TextElideMode.ElideLeft)
         self.tabWidget.setDocumentMode(False)
         self.tabWidget.setTabsClosable(False)
         self.tabWidget.setTabBarAutoHide(False)
@@ -108,6 +112,21 @@ class Ui_ScheduleEdit(object):
 
         self.verticalLayout.addWidget(self.tabWidget)
 
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.editLesson = QPushButton(self.horizontalLayoutWidget)
+        self.editLesson.setObjectName(u"editLesson")
+
+        self.horizontalLayout_2.addWidget(self.editLesson)
+
+        self.deleteLesson = QPushButton(self.horizontalLayoutWidget)
+        self.deleteLesson.setObjectName(u"deleteLesson")
+
+        self.horizontalLayout_2.addWidget(self.deleteLesson)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+
         self.addLEssonBtn = QPushButton(self.horizontalLayoutWidget)
         self.addLEssonBtn.setObjectName(u"addLEssonBtn")
         self.addLEssonBtn.setMinimumSize(QSize(0, 30))
@@ -125,8 +144,8 @@ class Ui_ScheduleEdit(object):
 
         self.formLayout_7 = QFormLayout()
         self.formLayout_7.setObjectName(u"formLayout_7")
-        self.formLayout_7.setLabelAlignment(Qt.AlignLeading)
-        self.formLayout_7.setFormAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+        self.formLayout_7.setLabelAlignment(Qt.AlignmentFlag.AlignLeading)
+        self.formLayout_7.setFormAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.formLayout_7.setVerticalSpacing(10)
         self.lessonDur_6 = QSpinBox(self.horizontalLayoutWidget)
         self.lessonDur_6.setObjectName(u"lessonDur_6")
@@ -165,7 +184,7 @@ class Ui_ScheduleEdit(object):
         self.timeEdit_6.setObjectName(u"timeEdit_6")
         self.timeEdit_6.setDateTime(QDateTime(QDate(2000, 1, 1), QTime(8, 30, 0)))
         self.timeEdit_6.setCalendarPopup(True)
-        self.timeEdit_6.setTimeSpec(Qt.LocalTime)
+        self.timeEdit_6.setTimeSpec(Qt.TimeSpec.LocalTime)
 
         self.formLayout_7.setWidget(3, QFormLayout.ItemRole.LabelRole, self.timeEdit_6)
 
@@ -225,7 +244,7 @@ class Ui_ScheduleEdit(object):
 
         self.pushButton = QPushButton(ScheduleEdit)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(10, 410, 781, 31))
+        self.pushButton.setGeometry(QRect(10, 420, 781, 31))
 
         self.retranslateUi(ScheduleEdit)
 
@@ -244,6 +263,8 @@ class Ui_ScheduleEdit(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Th), QCoreApplication.translate("ScheduleEdit", u"\u0427\u0442", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Fr), QCoreApplication.translate("ScheduleEdit", u"\u041f\u0442", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.St), QCoreApplication.translate("ScheduleEdit", u"\u0421\u0431", None))
+        self.editLesson.setText(QCoreApplication.translate("ScheduleEdit", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0443\u0440\u043e\u043a", None))
+        self.deleteLesson.setText(QCoreApplication.translate("ScheduleEdit", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439 \u0443\u0440\u043e\u043a", None))
         self.addLEssonBtn.setText(QCoreApplication.translate("ScheduleEdit", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0443\u0440\u043e\u043a", None))
         self.label_22.setText(QCoreApplication.translate("ScheduleEdit", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u0443\u0440\u043e\u043a\u0430 (\u043c\u0438\u043d)", None))
         self.label_23.setText(QCoreApplication.translate("ScheduleEdit", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u044b (\u043c\u0438\u043d)", None))

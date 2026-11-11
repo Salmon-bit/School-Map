@@ -37,8 +37,6 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
             if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.p.open_reg_window()
                 self.destroy()
-            else:
-                u = []
 
             return
 
@@ -64,7 +62,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         )
 
     def show_password_f(self):
-        """This methods show or hides password"""
+        """This method show or hides password"""
         if self.password_visible:
             self.password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         else:
@@ -72,7 +70,8 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
 
         self.password_visible = not self.password_visible
 
-    def destroy(self) -> None: #pylint: disable=invalid-name
-        """Rewrite destroy function to automatically close database connection"""
+    def destroy(self, **kwargs) -> None: #pylint: disable=invalid-name
+        """Rewrite destroy function to automatically close database connection
+        """
         self.dm.close_connection()
         return super().destroy(True, True)

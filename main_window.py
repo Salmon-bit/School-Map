@@ -42,10 +42,10 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
 
         self.school_view_floor_1.deleteLater()
 
-        self.school_veiw_floor_1 = Drawer(self.school, 1, parent)
-        self.school_veiw_floor_1.setGeometry(geometry)
+        self.school_view_floor_1 = Drawer(self.school, 1, parent)
+        self.school_view_floor_1.setGeometry(geometry)
 
-        self.school_veiw_floor_1.trigger_paint()
+        self.school_view_floor_1.trigger_paint()
 
         if self.parent is not None:
             self.actionExit.triggered.connect(self.parent.quit)
@@ -91,15 +91,15 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.actionAddFriendById.triggered.connect(self.add_friend_by_id)
         self.actionAddFriendByEmail.triggered.connect(self.add_friend_by_email)
         self.actionAddFriendByUsername.triggered.connect(self.add_friend_by_username)
-        self.actionViewFriends.triggered.connect(self.veiw_friends)
+        self.actionViewFriends.triggered.connect(self.view_friends)
 
         # School section
-        self.actionViewStudents.triggered.connect(self.veiw_students)
+        self.actionViewStudents.triggered.connect(self.view_students)
 
-        # Scheudle section
+        # Schedule section
         self.actionAddSchedule.triggered.connect(self.add_schedule)
 
-        # Programm section
+        # Program section
         self.actionHelp.triggered.connect(self.open_help)
         self.actionCredits.triggered.connect(self.open_credits)
         self.actionUserInfo.triggered.connect(self.view_user_info)
@@ -111,17 +111,19 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
             self.se.destroy()
             self.se = None
 
-        self.se = ScheduleEdit()
+        self.se = ScheduleEdit(self.dm.get_id_by_username(self.username))
         self.se.show()
 
-    def view_eula(self):
+    @staticmethod
+    def view_eula():
         """Opens a new tab in browser with EULA"""
         webbrowser.open(
             url='https://github.com/Salmon-bit/School-Map/blob/main/EULA.md',
             new=2
         )
 
-    def view_license(self):
+    @staticmethod
+    def view_license():
         """Opens a new tab in browser with License"""
         webbrowser.open(
             url='https://github.com/Salmon-bit/School-Map?tab=MIT-1-ov-file',
@@ -160,18 +162,19 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         )
         self.cr.show()
 
-    def open_help(self):
-        """Opens a github Readme"""
+    @staticmethod
+    def open_help():
+        """Opens a GitHub Readme"""
         webbrowser.open("https://github.com/Salmon-bit/School-Map/blob/main/README.md", 2)
 
-    def veiw_friends(self):
+    def view_friends(self):
         """Opens window that shows user friends"""
         f = self.dm.get_user_friends(self.dm.get_id_by_username(self.username))
         f = list(map(self.dm.get_username_by_id, f))
         self.sf = ListWidget(self.username, f, 'Friends')
         self.sf.show()
 
-    def veiw_students(self):
+    def view_students(self):
         """Opens a new window that shows students in school"""
         print(self.username)
         f = self.dm.get_students(self.dm.get_school_by_username(self.username))
@@ -180,8 +183,9 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.ss = ListWidget(f'Ученики школы \"{self.school}\"', f, "Students")
         self.ss.show()
 
-    def destroy(self):
-        """Rewrite destroy function to automatically close database connection"""
+    def destroy(self, **kwargs):
+        """Rewrite destroy function to automatically close database connection
+        """
         self.dm.close_connection()
         return super().destroy(True, True)
 

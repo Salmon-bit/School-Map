@@ -1,4 +1,4 @@
-"""This modules creates a DatabaseManager Class"""
+"""This module creates a DatabaseManager Class"""
 import sqlite3
 import hashlib
 import typing
@@ -276,6 +276,22 @@ class DatabaseManager:
         """Returns school name that gets from user"""
         return self.cur.execute('SELECT school FROM users WHERE username = ?', (username,)).fetchall()[0][0] # pylint: disable=line-too-long
 
+    def set_schedule(self, uid: int, schedule) -> None:
+        """Sets schedule
+
+        :param uid: User unique id
+        :type uid: int
+        :param schedule: Schedule
+        :type schedule: str"""
+
+        o = self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (uid,)).fetchone()
+        if o is not None:
+            self.cur.execute('UPDATE schedules SET schedule = ? WHERE user_id = ?', (schedule, uid))
+        else:
+            self.cur.execute('INSERT INTO schedules(user_id, schedule) VALUES(?, ?)', (uid, schedule))
+
+        self.connection.commit()
+
     def close_connection(self) -> None:
         """Closes database connection"""
         self.connection.close()
@@ -287,25 +303,27 @@ if __name__  == "__main__":
         dm.register_user(
             'Salmon228',
             'email',
-            'Школа №2070 ОП Энергия',
+            'Школа №2070',
             hashlib.sha256('password'.encode()).hexdigest()
         )
     if not dm.user_exists('Oleg'):
         dm.register_user(
             'Oleg',
             'email2',
-            'Школа №2070 ОП Энергия',
+            'Школа №2070',
             hashlib.sha256('qwerty'.encode()).hexdigest()
         )
     if not dm.user_exists('Федя'):
         dm.register_user(
             'Федя',
             'kolchin_fedor@mail.ru',
-            'Школа №2070 ОП Энергия',
+            'Школа №2070',
             hashlib.sha256('password'.encode()).hexdigest()
         )
 
     print(dm.get_users())
     print(dm.get_students('Школа №2070'))
+
+    dm.set_schedule(1, '{"Th": ["Russian Lang", "3065", "8:30", "9:10"]}')
 
     dm.close_connection()

@@ -63,7 +63,7 @@
          <string>Уроки</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -82,16 +82,13 @@
          </size>
         </property>
         <property name="tabPosition">
-         <enum>QTabWidget::TabPosition::North</enum>
-        </property>
-        <property name="tabShape">
-         <enum>QTabWidget::TabShape::Triangular</enum>
+         <enum>QTabWidget::North</enum>
         </property>
         <property name="currentIndex">
          <number>0</number>
         </property>
         <property name="elideMode">
-         <enum>Qt::TextElideMode::ElideNone</enum>
+         <enum>Qt::ElideLeft</enum>
         </property>
         <property name="documentMode">
          <bool>false</bool>
@@ -106,21 +103,61 @@
          <attribute name="title">
           <string>Пн</string>
          </attribute>
+         <widget class="QListWidget" name="mn_lw">
+          <property name="geometry">
+           <rect>
+            <x>-5</x>
+            <y>1</y>
+            <width>451</width>
+            <height>341</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="Tu">
          <attribute name="title">
           <string>Вт</string>
          </attribute>
+         <widget class="QListWidget" name="tu_lw">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>451</width>
+            <height>311</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="Wd">
          <attribute name="title">
           <string>Ср</string>
          </attribute>
+         <widget class="QListWidget" name="wd_lw">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>451</width>
+            <height>321</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="Th">
          <attribute name="title">
           <string>Чт</string>
          </attribute>
+         <widget class="QListWidget" name="th_lw">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>451</width>
+            <height>311</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="Fr">
          <property name="sizePolicy">
@@ -132,16 +169,42 @@
          <attribute name="title">
           <string>Пт</string>
          </attribute>
+         <widget class="QListWidget" name="fr_lw">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>451</width>
+            <height>311</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="St">
          <attribute name="title">
           <string>Сб</string>
          </attribute>
+         <widget class="QListWidget" name="st_lw">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>451</width>
+            <height>311</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="addLEssonBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="text">
          <string>Добавить урок</string>
         </property>
@@ -152,12 +215,28 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>46</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <layout class="QFormLayout" name="formLayout_7">
         <property name="labelAlignment">
-         <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
+         <set>Qt::AlignLeading</set>
         </property>
         <property name="formAlignment">
-         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
         <property name="verticalSpacing">
          <number>10</number>
@@ -220,7 +299,7 @@
            <bool>true</bool>
           </property>
           <property name="timeSpec">
-           <enum>Qt::TimeSpec::LocalTime</enum>
+           <enum>Qt::LocalTime</enum>
           </property>
          </widget>
         </item>
@@ -285,14 +364,14 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Отметьте уроки после которых у вас </string>
+           <string>Отметьте уроки, после которых у вас </string>
           </property>
          </widget>
         </item>
         <item row="7" column="1">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Большая перемена</string>
+           <string>большая перемена</string>
           </property>
          </widget>
         </item>
@@ -308,7 +387,7 @@
      <x>10</x>
      <y>410</y>
      <width>781</width>
-     <height>34</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">

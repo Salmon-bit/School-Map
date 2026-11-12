@@ -1,8 +1,6 @@
 """Provides a Schedule Editor class"""
 import json
 import sys
-
-from PySide6.QtCore import QMimeData
 from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox, QListWidget
 from ui.ui_schedule_editor import Ui_ScheduleEdit
@@ -291,11 +289,9 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         )
 
         if reply == QMessageBox.StandardButton.Yes:
-            # Разрешаем закрытие окна
             self.db.close_connection()
             event.accept()
         else:
-            # Запрещаем закрытие окна (оставляем его открытым)
             event.ignore()
 
 

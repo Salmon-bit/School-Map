@@ -1,6 +1,8 @@
 """Provides a Schedule Editor class"""
 import json
 import sys
+
+from PySide6.QtCore import QMimeData
 from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox, QListWidget
 from ui.ui_schedule_editor import Ui_ScheduleEdit
@@ -32,6 +34,24 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.count_lessons()
 
         print(self.lessons)
+
+    def get_lesson_info(self):
+        lesson_name, result = QInputDialog.getText(
+            self,
+            "Добавление урока",
+            "Введите название урока"
+        )
+
+        if result:
+            cab, result_2 = QInputDialog.getInt(
+                self,
+                "Добавление урока",
+                "Введите номер кабинета"
+            )
+            if result_2:
+                return lesson_name, cab
+
+        return None
 
     def count_lessons(self):
         for key in self.schedule:
@@ -187,7 +207,27 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.draw_lessons()
 
     def edit_lesson(self):
-        selected_lesson: QListWidget = self.tabWidget.currentWidget().children()[0]
+        """Edits selected lesson"""
+
+        lw: QListWidget = self.tabWidget.currentWidget().children()[0]
+        if len(lw.selectedItems()) == 0:
+            return
+
+        if (o := self.get_lesson_info()) is not None:
+            lesson_name, cab = o
+        else:
+            return
+
+        lesson = lw.selectedIndexes()[0].row()
+        time = self.schedule.get(self.tabWidget.currentWidget().objectName(), [])[lesson][-2:]
+
+        print(time)
+
+        self.schedule[self.tabWidget.currentWidget().objectName()][lesson] = \
+            [lesson_name, cab, *time]
+
+        self.draw_lessons()
+
 
     def add_lesson(self):
         """Adds new lesson to the schedule"""
@@ -195,55 +235,43 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
 
         self.count_lesson_times()
 
-        lesson_name, result = QInputDialog.getText(
-            self,
-            "Добавление урока",
-            "Введите название урока"
-        )
+        if (o := self.get_lesson_info()) is not None:
+            cab, lesson_name = o
+            day = 0
+            match cur_day.objectName():
+                case 'Mn':
+                    day = 0
+                case 'Tu':
+                    day = 1
+                case 'Wd':
+                    day = 2
+                case 'Th':
+                    day = 3
+                case 'Fr':
+                    day = 4
+                case 'St':
+                    day = 5
 
-        if result:
-            cab, result_2 = QInputDialog.getInt(
-                self,
-                "Добавление урока",
-                "Введите номер кабинета"
-            )
-            if result_2:
-                day = 0
-                match cur_day.objectName():
-                    case 'Mn':
-                        day = 0
-                    case 'Tu':
-                        day = 1
-                    case 'Wd':
-                        day = 2
-                    case 'Th':
-                        day = 3
-                    case 'Fr':
-                        day = 4
-                    case 'St':
-                        day = 5
+            if self.lessons[day] >= 9:
+                QMessageBox.critical(
+                    self,
+                    'Ошибка',
+                    'Нелья добавить более 9-ти уроков в один день!'
+                )
+                return
 
-                if self.lessons[day] >= 9:
-                    QMessageBox.critical(
-                        self,
-                        'Ошибка',
-                        'Нелья добавить более 9-ти уроков в один день!'
-                    )
-                    return
+            self.schedule[cur_day.objectName()] = \
+            self.schedule.get(cur_day.objectName(), []) + \
+            [[lesson_name, str(cab), *self.lesson_timings[self.lessons[day]]]]
 
-                self.schedule[cur_day.objectName()] = \
-                self.schedule.get(cur_day.objectName(), []) + \
-                [[lesson_name, str(cab), *self.lesson_timings[self.lessons[day]]]]
+            self.lessons[day] += 1
 
-                self.lessons[day] += 1
+            print(cur_day.objectName())
 
+            print(self.lessons)
+            print(self.schedule)
 
-        print(cur_day.objectName())
-
-        print(self.lessons)
-        print(self.schedule)
-
-        self.draw_lessons()
+            self.draw_lessons()
 
     def exit(self):
         """This method is called when the program is closed"""
@@ -253,6 +281,7 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.destroy()
 
     def closeEvent(self, event: QCloseEvent) -> None:
+        """Overrides close Event to ask user if he really wants to close the window"""
         reply = QMessageBox.question(
             self,
             'Подтверждение',

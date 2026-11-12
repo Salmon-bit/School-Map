@@ -293,7 +293,10 @@ class DatabaseManager:
         self.connection.commit()
 
     def get_schedule(self, user_id: int):
-        return self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (user_id,)).fetchone()[0]
+        o = self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (user_id,)).fetchone()
+        if o is not None:
+            return self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (user_id,)).fetchone()[0]
+        return '{}'
 
     def close_connection(self) -> None:
         """Closes database connection"""
@@ -326,7 +329,5 @@ if __name__  == "__main__":
 
     print(dm.get_users())
     print(dm.get_students('Школа №2070'))
-
-    dm.set_schedule(1, '{"Th": [["Russian Lang", "3065", "8:30", "9:10"]]}')
 
     dm.close_connection()

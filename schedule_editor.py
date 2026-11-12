@@ -234,7 +234,7 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.count_lesson_times()
 
         if (o := self.get_lesson_info()) is not None:
-            cab, lesson_name = o
+            lesson_name, cab = o
             day = 0
             match cur_day.objectName():
                 case 'Mn':
@@ -297,6 +297,6 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    se = ScheduleEdit(1)
+    se = ScheduleEdit(2)
     se.show()
     sys.exit(app.exec())

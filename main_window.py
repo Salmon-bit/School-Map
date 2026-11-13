@@ -5,7 +5,6 @@ import webbrowser
 from PySide6.QtCore import QSize # pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
-
 import web
 from ui.ui_main_window import Ui_MainWindow
 from ui.ui_list_widget import ListWidget

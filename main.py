@@ -2,6 +2,8 @@
 When you want to run or build the project,
 you should use this file as a main module or entrypoint of the program"""
 import sys
+import os
+import json
 from PySide6.QtWidgets import QApplication, QWidget
 from ui.ui_welcome_screen import Ui_WelcomeScreen
 from register_window import RegisterWindow
@@ -29,6 +31,31 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
 
         self.register_btn.clicked.connect(self.open_reg_window)
         self.login_btn.clicked.connect(self.open_log_window)
+        self.show_on_start.clicked.connect(self.toggle_checkbox)
+
+        self.show_on_start.setChecked(not os.path.exists('assets/hide_on_start'))
+
+        try:
+            os.makedirs('assets', exist_ok=True)
+            with open('assets/userdata.json', 'r', encoding='UTF-8', newline='') as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            return
+
+        if os.path.exists('assets/hide_on_start'):
+            self.open_main_window(data['username'], data['email'])
+
+    def toggle_checkbox(self):
+        os.makedirs('assets', exist_ok=True)
+        if not self.show_on_start.isChecked():
+            with open('assets/hide_on_start', 'w', encoding='UTF-8'):
+                pass
+        else:
+            try:
+                os.remove('assets/hide_on_start')
+            except FileNotFoundError:
+                return
+            
 
     def open_reg_window(self):
         """This method opens a registration window. If login window was open, it will close it."""
@@ -54,11 +81,15 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
         if self.mw is not None:
             self.mw.destroy()
             self.mw = None
-        self.lw.destroy()
-        self.lw = None
+        if self.lw is not None:
+            self.lw.destroy()
+            self.lw = None
+        if self.rw is not None:
+            self.rw.destroy()
+            self.rw = None
+        self.hide()
         self.mw = MainWindow(username, email, self, self.app)
         self.mw.show()
-        self.hide()
 
     def quit(self):
         """Quits the program"""
@@ -70,12 +101,12 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.mw.destroy()
         self.dm.close_connection()
         self.destroy()
-
         self.app.quit()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     ws = WelcomeScreen(app)
-    ws.show()
+    if ws.mw is None:
+        ws.show()
     sys.exit(app.exec())

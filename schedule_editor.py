@@ -73,12 +73,12 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
                 case 'Fr':
                     day = 4
                 case 'St':
-                    day = 5 # pylint: disable=too-many-statements
+                    day = 5
             self.lessons[day] = len(self.schedule[key])
 
         print(self.lessons)
 
-    def count_lesson_times(self):
+    def count_lesson_times(self): # pylint: disable=too-many-statements
         """Calculates lesson start and lesson end time"""
         time = self.timeEdit_6.dateTime().time()
 
@@ -315,6 +315,6 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    se = ScheduleEdit(2)
+    se = ScheduleEdit(1)
     se.show()
     sys.exit(app.exec())

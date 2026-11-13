@@ -46,7 +46,7 @@ jobs:
     - name: Rename artifacts for Unix systems
       shell: bash
       run: |
-        if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+        if [ "${{ matrix.os }}" = "ubuntu-22.0.4" ]; then
           mv "dist/School-map-windows.exe" "dist/School-map-linux"
         elif [ "${{ matrix.os }}" = "macos-latest" ]; then
           mv "dist/School-map-windows.exe" "dist/School-map-macos"

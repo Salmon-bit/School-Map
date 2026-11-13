@@ -267,14 +267,20 @@ class DatabaseManager:
         return list(
             map(int,
                 [
-                    i[0] for i in self.cur.execute('SELECT id FROM users WHERE school = ?', (school,)).fetchall() # pylint: disable=line-too-long
+                    i[0] for i in self.cur.execute(
+                        'SELECT id FROM users WHERE school = ?',
+                        (school,)
+                    ).fetchall()
                 ]
             )
         )
 
     def get_school_by_username(self, username) -> str:
         """Returns school name that gets from user"""
-        return self.cur.execute('SELECT school FROM users WHERE username = ?', (username,)).fetchall()[0][0] # pylint: disable=line-too-long
+        return self.cur.execute(
+            'SELECT school FROM users WHERE username = ?',
+            (username,)
+        ).fetchall()[0][0]
 
     def set_schedule(self, uid: int, schedule) -> None:
         """Sets schedule
@@ -284,18 +290,40 @@ class DatabaseManager:
         :param schedule: Schedule
         :type schedule: str"""
 
-        o = self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (uid,)).fetchone()
+        o = self.cur.execute(
+            'SELECT schedule FROM schedules WHERE user_id = ?',
+            (uid,)
+        ).fetchone()
         if o is not None:
-            self.cur.execute('UPDATE schedules SET schedule = ? WHERE user_id = ?', (schedule, uid))
+            self.cur.execute(
+                'UPDATE schedules SET schedule = ? WHERE user_id = ?',
+                (schedule, uid)
+            )
         else:
-            self.cur.execute('INSERT INTO schedules(user_id, schedule) VALUES(?, ?)', (uid, schedule))
+            self.cur.execute(
+                'INSERT INTO schedules(user_id, schedule) VALUES(?, ?)',
+                (uid, schedule)
+            )
 
         self.connection.commit()
 
-    def get_schedule(self, user_id: int):
-        o = self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (user_id,)).fetchone()
+    def get_schedule(self, user_id: int) -> str:
+        """Returns got schedule by user id
+        
+        :param user_id: User id to fetch schedule
+        :type user_id: int
+        :returns: Returns got schedule as json
+        :rtype: str
+        """
+        o = self.cur.execute(
+            'SELECT schedule FROM schedules WHERE user_id = ?',
+            (user_id,)
+        ).fetchone()
         if o is not None:
-            return self.cur.execute('SELECT schedule FROM schedules WHERE user_id = ?', (user_id,)).fetchone()[0]
+            return self.cur.execute(
+                'SELECT schedule FROM schedules WHERE user_id = ?',
+                (user_id,)
+            ).fetchone()[0]
         return '{}'
 
     def close_connection(self) -> None:

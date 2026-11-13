@@ -47,7 +47,7 @@ class Drawer(QWidget):
             ) as f:
                 data = json.load(f)
             points = [QPoint(p[0], p[1]) for p in data["points"]]
-            [qp.drawText(QPoint(c[1], c[2]), c[0]) for c in data['cabinets']]
+            _ = [qp.drawText(QPoint(c[1], c[2]), c[0]) for c in data['cabinets']]
             qp.drawPolygon(points)
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(

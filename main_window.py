@@ -110,6 +110,7 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.actionEULA.triggered.connect(self.view_eula)
 
     def add_schedule(self):
+        """Opens schedule editor window"""
         if self.se is not None:
             self.se.destroy()
             self.se = None
@@ -193,9 +194,8 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.ss = ListWidget(f'Ученики школы \"{self.school}\"', f, "Students")
         self.ss.show()
 
-    def destroy(self, **kwargs):
-        """Rewrite destroy function to automatically close database connection
-        """
+    def destroy(self):
+        """Rewrite destroy function to automatically close database connection"""
         self.dm.close_connection()
         return super().destroy(True, True)
 

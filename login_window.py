@@ -70,7 +70,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
 
         self.password_visible = not self.password_visible
 
-    def destroy(self, **kwargs) -> None: #pylint: disable=invalid-name
+    def destroy(self) -> None: #pylint: disable=invalid-name
         """Rewrite destroy function to automatically close database connection
         """
         self.dm.close_connection()

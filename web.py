@@ -15,7 +15,8 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
     """
     try:
         r = requests.get(
-            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json',
+            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/\
+assets/school_{school}_floor_{floor}.json',
             # pylint: disable=line-too-long
             timeout=10
         )
@@ -25,7 +26,8 @@ def get_school_floor(school: str, floor: int, branch: str = "main"):
     if r.status_code != 200:
         print(
             'Error getting file via url: ' + \
-            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/school_{school}_floor_{floor}.json'
+            f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/\
+assets/school_{school}_floor_{floor}.json'
             # pylint: disable=line-too-long
         )
         return
@@ -41,7 +43,8 @@ def get_available_schools(branch: str = "main"):
     :type branch: str"""
     try:
         r = requests.get(
-            url=f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/assets/schools.txt',
+            url=f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}/\
+assets/schools.txt',
             # pylint: disable=line-too-long
             timeout=10
         )

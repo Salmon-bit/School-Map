@@ -1,13 +1,14 @@
 """Provides a Schedule Editor class"""
 import json
 import sys
-from PySide6.QtGui import QCloseEvent
+from PySide6.QtGui import QCloseEvent # pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox, QListWidget
 from ui.ui_schedule_editor import Ui_ScheduleEdit
 from database_manager import DatabaseManager
 
 
 class ScheduleEdit(Ui_ScheduleEdit, QWidget):
+    """Creates Schedule Edit Window"""
     def __init__(self, user_id):
         """Inits the class"""
         super().__init__()
@@ -28,12 +29,16 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.schedule = json.loads(self.db.get_schedule(self.user_id))
         print(self.schedule)
         self.draw_lessons()
-        
+
         self.count_lessons()
 
         print(self.lessons)
 
-    def get_lesson_info(self):
+    def get_lesson_info(self) -> tuple:
+        """Opens two dialogs and returns their values
+        
+        :returns: Dialogs value
+        :rtype: tuple"""
         lesson_name, result = QInputDialog.getText(
             self,
             "Добавление урока",
@@ -51,7 +56,8 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
 
         return None
 
-    def count_lessons(self):
+    def count_lessons(self) -> None:
+        """Count lessons"""
         for key in self.schedule:
             print(key)
             day = 0
@@ -67,7 +73,7 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
                 case 'Fr':
                     day = 4
                 case 'St':
-                    day = 5
+                    day = 5 # pylint: disable=too-many-statements
             self.lessons[day] = len(self.schedule[key])
 
         print(self.lessons)
@@ -170,12 +176,24 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
         self.fr_lw.clear()
         self.st_lw.clear()
 
-        self.mn_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Mn', [])])
-        self.tu_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Tu', [])])
-        self.wd_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Wd', [])])
-        self.th_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Th', [])])
-        self.fr_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Fr', [])])
-        self.st_lw.addItems([f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('St', [])])
+        self.mn_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Mn', [])]
+        )
+        self.tu_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Tu', [])]
+        )
+        self.wd_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Wd', [])]
+        )
+        self.th_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Th', [])]
+        )
+        self.fr_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('Fr', [])]
+        )
+        self.st_lw.addItems(
+            [f'{i[0]} в каб. {i[1]} ({i[2]} - {i[3]})' for i in self.schedule.get('St', [])]
+        )
 
     def delete_last_lesson(self):
         """Deletes last lesson in selected day of week"""
@@ -278,7 +296,7 @@ class ScheduleEdit(Ui_ScheduleEdit, QWidget):
 
         self.destroy()
 
-    def closeEvent(self, event: QCloseEvent) -> None:
+    def closeEvent(self, event: QCloseEvent) -> None: #pylint: disable=invalid-name
         """Overrides close Event to ask user if he really wants to close the window"""
         reply = QMessageBox.question(
             self,

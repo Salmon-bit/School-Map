@@ -55,26 +55,23 @@ def get_available_schools(branch: str = "main"):
     with open('assets/schools.txt', 'w', encoding='UTF-8', newline='') as f:
         f.write(r.text)
 
+def get_devs(branch: str = "main"):
+    """Fetching devs from repo"""
+    try:
+        r = requests.get(
+            url=f'https://raw.githubusercontent.com/Salmon-bit/School-Map/refs/heads/{branch}\
+/assets/devs.txt',
+            timeout=10
+        )
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+        return
 
-# def get_database(branch: str = "work"):
-#     """Fetching database from repo
+    if r.status_code != 200:
+        return
 
-#     :param branch: The repo branch function should get file
-#     :type branch: str
-#     """
-#     r = requests.get(
-#         f'https://github.com/Salmon-bit/School-Map/raw/refs/heads/{branch}/school_map.db'
-#     )
-
-#     if r.status_code != 200:
-#         print(
-#             'Error getting file via url: ' + \
-#             f'https://github.com/Salmon-bit/School-Map/raw/refs/heads/{branch}/school_map.db'
-#         )
-#         return
-
-#     with open('school_map.db', 'wb') as f:
-#         f.write(r.content)
+    os.makedirs('assets', exist_ok=True)
+    with open('assets/devs.txt', 'w', encoding='UTF-8', newline='') as f:
+        f.write(r.text)
 
 
 if __name__ == "__main__":

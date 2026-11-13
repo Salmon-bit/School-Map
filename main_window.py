@@ -1,9 +1,12 @@
 """Creates Main Window Class"""
+import os
 import sys
 import webbrowser
 from PySide6.QtCore import QSize # pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
+
+import web
 from ui.ui_main_window import Ui_MainWindow
 from ui.ui_list_widget import ListWidget
 from database_manager import DatabaseManager
@@ -151,13 +154,20 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         """Opens a new window that shows developers"""
         if self.cr is not None:
             self.cr = None
+
+        web.get_devs()
+        try:
+            os.makedirs('assets', exist_ok=True)
+            with open('assets/devs.txt', 'r', encoding='UTF-8', newline='') as f:
+                devs = [l.strip() for l in f.readlines()]
+        except FileNotFoundError:
+            devs = [
+                "Не удалось получить список разработчиков.\n\
+Проверьте своё интернет-подключение."
+            ]
         self.cr = ListWidget(
             "Создатели:",
-            [
-                "Главный разработчик: Salmon228",
-                "Тестировщик: Glases_11",
-                "Тестировщик: Alen"
-            ],
+            devs,
             "Developers"
         )
         self.cr.show()

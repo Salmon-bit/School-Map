@@ -101,6 +101,8 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
 
         # Schedule section
         self.actionAddSchedule.triggered.connect(self.add_schedule)
+        self.actionAddSchedule.setText('Редактировать расписание')
+        self.menuSchedule.removeAction(self.actionEditSchedule)
 
         # Program section
         self.actionHelp.triggered.connect(self.open_help)
@@ -119,11 +121,9 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         try:
             os.remove('assets/hide_on_start')
         except FileNotFoundError:
-            QMessageBox.critical(
-                self,
-                'Ошибка',
-                "Стартовое окно уже отображается при запуске программы."
-            )
+            return
+
+        self.menuProgramm.removeAction(self.action_hide)
 
     def add_schedule(self):
         """Opens schedule editor window"""

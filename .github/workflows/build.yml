@@ -41,15 +41,15 @@ jobs:
     - name: Run PyInstaller
       shell: bash
       run: |
-        pyinstaller -Fwn "SchoolMap.exe" main.py
+        pyinstaller -Fwn "School-map-windows.exe" main.py
 
     - name: Rename artifacts for Unix systems
       shell: bash
       run: |
         if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-          mv "dist/SchoolMap.exe" "dist/SchoolMap-linux"
+          mv "dist/School-map-windows.exe" "dist/School-map-linux"
         elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-          mv "dist/SchoolMap.exe" "dist/SchoolMap-macos"
+          mv "dist/School-map-windows.exe" "dist/School-map-macos"
         fi
 
     - name: Create Release and Upload Artifact

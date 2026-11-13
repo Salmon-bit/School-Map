@@ -25,6 +25,7 @@ class LoginWindow(QtWidgets.QWidget, Ui_LoginForm):
         self.auto_login.clicked.connect(self.auto_login_click)
 
     def auto_login_click(self):
+        """Checkbox press handler"""
         self.save_data = self.auto_login.isChecked()
 
     def login_f(self):

@@ -5,7 +5,7 @@ import webbrowser
 from PySide6.QtCore import QSize # pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 from PySide6.QtWidgets import QInputDialog
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QAction # pylint: disable=no-name-in-module
 import web
 from ui.ui_main_window import Ui_MainWindow
 from ui.ui_list_widget import ListWidget
@@ -111,13 +111,14 @@ class MainWindow(QMainWindow, Ui_MainWindow): # pylint:disable=too-many-instance
         self.actionLicense.triggered.connect(self.view_license)
         self.actionEULA.triggered.connect(self.view_eula)
 
-        if (os.path.exists('assets/hide_on_start')):
+        if os.path.exists('assets/hide_on_start'):
             self.action_hide = QAction(self, text='Показывать окно при старте')
             self.menuProgramm.addSeparator()
             self.menuProgramm.addAction(self.action_hide)
             self.action_hide.triggered.connect(self.show_window_on_start)
 
     def show_window_on_start(self) -> None:
+        """Shows window when start or does not shows it"""
         try:
             os.remove('assets/hide_on_start')
         except FileNotFoundError:

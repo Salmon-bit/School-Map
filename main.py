@@ -46,6 +46,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             self.open_main_window(data['username'], data['email'])
 
     def toggle_checkbox(self):
+        """Handles checkbox"""
         os.makedirs('assets', exist_ok=True)
         if not self.show_on_start.isChecked():
             with open('assets/hide_on_start', 'w', encoding='UTF-8'):
@@ -54,8 +55,7 @@ class WelcomeScreen(Ui_WelcomeScreen, QWidget):
             try:
                 os.remove('assets/hide_on_start')
             except FileNotFoundError:
-                return
-            
+                pass
 
     def open_reg_window(self):
         """This method opens a registration window. If login window was open, it will close it."""
